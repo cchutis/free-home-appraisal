@@ -1,0 +1,440 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.App {
+    text-align: center;
+}
+
+.hero-header {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("./assets/img/landing.jpg");
+    margin: 0;
+    padding: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.header {
+    height: 100px;
+    width: 100vw;
+    background-color: rgba(49, 128, 173, 0.705);
+}
+
+.nav {
+    height: 500px;
+    background-image: url("./assets/img/FHA-header.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: absolute;
+    top: 0;
+    margin-bottom: 80px;
+}
+
+.left-window {
+    width: 70%;
+    height: 40%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    border-radius: 0 10px 10px 0;
+    padding-left: 80px;
+    margin-top: 100px;
+}
+
+.fade {
+    background: linear-gradient(231deg, #46be945b, #00d9ff59);
+    background-size: 200% 200%;
+    -webkit-animation: FooterSwell 6s ease infinite;
+    animation: FooterSwell 6s ease infinite;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.search-bar-container {
+    height: 200px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.search-bar-container h1 {
+    line-height: 0;
+    color: rgb(41, 41, 41);
+}
+
+.logo {
+    width: 160px;
+    padding: 10px 15px;
+    color: white;
+}
+
+.logo-container {
+    position: absolute;
+    top: 0;
+    left: 20px;
+}
+
+#title {
+    padding: 100px 0 40px 0;
+    color: white;
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 30px;
+}
+
+.house-card {
+    padding: 10px;
+}
+
+#address-input {
+    /* height: 50px; */
+}
+
+#user-login {
+    height: 30px;
+    width: 80px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#transition-modal-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#transition-modal-title {
+    font-size: 35px;
+    font-weight: 300;
+}
+
+.form-item {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.input-field {
+    width: 300px;
+}
+
+.login-btn {
+    width: 100px;
+}
+
+.greeting {
+    font-weight: 300;
+    font-size: 25px;
+    padding-right: 10px;
+    color: white;
+    display: inline;
+}
+
+.home-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    background-color: lightcyan;
+}
+
+.home-info .left {
+    text-align: left;
+    margin: 0 40px;
+    width: 80%;
+}
+
+.home-info .right {
+    text-align: left;
+    margin: 0 40px;
+    width: 80%;
+}
+
+.main {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+p {
+    color: black;
+}
+
+p strong {
+    color: slateblue;
+}
+
+.fha-estimate {
+    position: relative;
+}
+
+.footer {
+    height: 600px;
+    background: linear-gradient(231deg, #46be9480, #00d9ff85);
+    background-size: 200% 200%;
+    -webkit-animation: FooterSwell 6s ease infinite;
+    animation: FooterSwell 6s ease infinite;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.widget {
+    background-color: rgba(49, 127, 173, 0.425);
+    height: 400px;
+    width: 400px;
+    margin: 40px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px;
+}
+
+.widget h2 {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 0;
+    color: white;
+}
+
+.widget p {
+    color: white;
+}
+
+.footer-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 50px;
+    background-color: rgba(49, 128, 173, 0.706);
+}
+
+.logo-bottom {
+    padding: 20px 20px 15px 20px;
+    width: 140px;
+}
+
+.main-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    width: 100vw;
+    right: 20px;
+}
+
+.main-menu li a {
+    padding: 0 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.main-menu li a:hover {
+    color: #f50057;
+}
+
+.user-login {
+    font-size: 18px;
+}
+
+.landing-info {
+    height: 500px;
+    background-color: rgba(49, 128, 173, 0.705);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.section-2 {
+    background-image: url("https://cdn.onekindesign.com/wp-content/uploads/2017/06/Luxury-Modern-Home-04-1-Kindesign.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: white;
+    font-size: 40px;
+}
+
+.section-3 {
+    background-color: white;
+}
+
+.section-4 {
+    background-color: salmon;
+}
+
+.home-text-right {
+    text-align: right;
+    width: 800px;
+    font-size: 16px;
+    margin: 0 100px;
+    color: white;
+}
+
+.link {
+    cursor: pointer;
+}
+
+.star-home-overlay {
+    font-size: 50px;
+    color: white;
+    filter: drop-shadow(2px 2px 10px #000);
+}
+
+.star-home-overlay:hover {
+    cursor: pointer;
+    transform: scale(1.2, 1.2);
+}
+
+.house-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.right-widget {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.right-side, .left-side {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 20px;
+}
+
+ul {
+    list-style-type: none;
+    text-align: left;
+    width: 150px;
+}
+
+.right-side > ul > li, .left-side > ul > li {
+    padding: 5px;
+    color: white;
+}
+
+.right-side > ul > li:hover, .left-side > ul > li:hover {
+    cursor: pointer;
+    color: blue;
+}
+
+.social-icons {
+    padding: 20px;
+}
+
+.social-icon {
+    margin: 10px;
+    color: white;
+}
+
+.social-icon > *:hover {
+    transform: scale(1.1, 1.1);
+    cursor: pointer;
+    color: blue;
+}
+
+#newsletter {
+    width: 100%;
+}
+
+#newsletter > [type="email"] {
+    width: 80%;
+    height: 40px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #cccccc;
+    font-size: 16px;
+}
+
+#newsletter > [type="submit"] {
+    width: 20%;
+    height: 40px;
+    border-radius: 0 5px 5px 0;
+    background: #f50057;
+    color: white;
+    font-size: 16px;
+    line-height: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/* Text align override for address search */
+#algolia-places-listbox-0 {
+    text-align: left;
+}
+
+@-webkit-keyframes FooterSwell {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes FooterSwell {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

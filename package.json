@@ -1,0 +1,35 @@
+{
+  "name": "fha-backend",
+  "version": "1.0.0",
+  "engines": {
+    "node": "12.16.x"
+  },
+  "description": "Backend (Node JS) for FHA App",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Constantine Chutis",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.13",
+    "mongoose-data-seed": "^2.1.6",
+    "node-fetch": "^2.6.0",
+    "node-zillow": "^2.0.0",
+    "nodemon": "^2.0.3",
+    "xml2js": "^0.4.23",
+    "xmldom": "^0.3.0"
+  },
+  "mdSeed": {
+    "seedersFolder": "./seeders"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.8.7"
+  }
+}
