@@ -21,7 +21,8 @@ import ContactContent from './content/ContactContent';
 import SellMyHomeContent from './content/SellMyHomeContent';
 import LandingPageContent from './content/LandingPageContent';
 
-const estimatesAPI = '/estimates'
+const estimatesAPI = '/estimates';
+
 
 export default class App extends Component {
   state = {
@@ -66,9 +67,11 @@ export default class App extends Component {
       },
     },
     isLoggedIn: false,
-    user: {}
+    user: {},
+    isLoading: false
   };
 
+ 
 
   fetchEstimates = id => {
     fetch(estimatesAPI)
@@ -93,6 +96,9 @@ export default class App extends Component {
 
   //  Hitting XML Zillow
   fetchHomeData = async (street_address, city, state, zip) => {
+    this.setState({
+      isLoading: true
+    })
     const api_url = estimatesAPI + `/${street_address}/${city}/${state}/${zip}`;
     const response = await fetch(api_url);
     const fullData = await response.json();
@@ -101,6 +107,7 @@ export default class App extends Component {
     console.log("foundHome:", foundHome);
     if(foundHome) {
       this.setState({
+        isLoading: false,
         foundHome: this.parseHome(foundHome),
             estimates: {
               ...this.state.estimates,
@@ -264,7 +271,7 @@ export default class App extends Component {
             />
             <Element name="search-results">
               {this.isEmpty(this.state.foundHome) ? (
-                <EmptySearchContainer />
+                <EmptySearchContainer isLoading={this.state.isLoading}/>
               ) : (
                 <APIContainer
                   home={this.state.foundHome}

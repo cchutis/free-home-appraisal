@@ -24,6 +24,8 @@
     "node-fetch": "^2.6.0",
     "node-zillow": "^2.0.0",
     "nodemon": "^2.0.3",
+    "react-async": "^10.0.1",
+    "react-promise-tracker": "^2.1.0",
     "xml2js": "^0.4.23",
     "xmldom": "^0.3.0"
   },
