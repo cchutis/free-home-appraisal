@@ -21,7 +21,7 @@ import ContactContent from './content/ContactContent';
 import SellMyHomeContent from './content/SellMyHomeContent';
 import LandingPageContent from './content/LandingPageContent';
 
-const estimatesAPI = '/estimates/results';
+const estimatesAPI = '/estimates';
 
 
 export default class App extends Component {
