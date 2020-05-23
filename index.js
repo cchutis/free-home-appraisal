@@ -121,13 +121,6 @@ app.get('estimates/:street_address/:city/:state/:zip', async (req, res) => {
 
 })
 
-app.get('/estimates', function(req, res) {
-    res.sendFile(path.join(__dirname+'/client/build/index.html'), function (err) {
-        if(err) {
-            res.status(500).send(err)
-        }
-    })
-});
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname+'/client/build/index.html'), function (err) {
