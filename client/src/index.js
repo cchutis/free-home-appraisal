@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, browserHistory } from 'react-router-dom';
 import './index.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
@@ -8,7 +8,7 @@ import 'typeface-roboto';
 
 
 ReactDOM.render(
-    <Router>
+    <Router history={browserHistory}>
         <App />
     </Router>, 
     document.getElementById('root'));
