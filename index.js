@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname+'/client/build/index.html')));
 
-app.get('estimates/:street_address/:city/:state/:zip', async (req, res) => {
+app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     const parameters = {
         address: req.params.street_address,
         citystatezip: `${req.params.city}, ${req.params.state}`,
