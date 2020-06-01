@@ -8,7 +8,7 @@ import 'typeface-roboto';
 
 
 ReactDOM.render(
-    <Router history={browserHistory}>
+    <Router>
         <App />
     </Router>, 
     document.getElementById('root'));
