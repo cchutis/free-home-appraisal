@@ -246,16 +246,18 @@ p strong {
     padding: 0 100px;
     padding-bottom: 20px;
     background-color: #222222;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .footer-nav {
     display: flex;
     flex-direction: row;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .footer-nav p {
     color: white;
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     padding: 0 10px;
     font-size: 1.7em;
 }

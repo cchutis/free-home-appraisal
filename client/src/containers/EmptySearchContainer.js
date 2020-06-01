@@ -7,9 +7,9 @@ export default function EmptySearchContainer(props) {
             {props.isLoading ? 
             <div>
                 <CircularProgress />
-                <h2>The Free Home Apprasial Algorithm is finding your home's value</h2>
+                <h1>The Free Home Apprasial Algorithm is finding your home's value!</h1>
             </div>  :
-            <h2>Enter an Address above to get results!</h2>
+            <img src="./img/howitworks-FHA.png"/>
             }
         </div>
     )
