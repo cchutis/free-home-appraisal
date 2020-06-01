@@ -14,7 +14,7 @@ html {
 }
 
 .hero-header {
-    height: 100vh;
+    height: 60vh;
     width: 100vw;
     background-image: url("./assets/img/landing.jpg");
     margin: 0;
@@ -38,19 +38,20 @@ html {
     background-repeat: no-repeat;
     display: absolute;
     top: 0;
+    padding: 0;
     margin-bottom: 80px;
 }
 
 .left-window {
-    width: 70%;
-    height: 40%;
+    width: 50%;
+    height: 50%;
     background-color: rgba(255, 255, 255, 0.9);
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
     border-radius: 0 10px 10px 0;
-    padding-left: 80px;
+    padding-left: 10%;
     margin-top: 100px;
 }
 
@@ -270,7 +271,7 @@ p strong {
 .main-menu {
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding: 0 5% 0 0;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -279,13 +280,14 @@ p strong {
     top: 20px;
     width: 100vw;
     right: 20px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .main-menu li a {
-    padding: 0 20px;
+    padding: 0 10px;
     text-decoration: none;
     color: white;
-    font-size: 18px;
+    font-size: 1.3em;
 }
 
 .main-menu li a:hover {
@@ -293,12 +295,13 @@ p strong {
 }
 
 .user-login {
-    font-size: 18px;
+    font-size: 1.3em;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .landing-info {
     height: 500px;
-    background-color: rgba(49, 128, 173, 0.705);
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -308,7 +311,7 @@ p strong {
 .section-1 {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .section-2 {
@@ -329,11 +332,11 @@ p strong {
 }
 
 .home-text-right {
-    text-align: right;
-    width: 800px;
+    text-align: left;
+    width: 80%;
     font-size: 16px;
     margin: 0 100px;
-    color: white;
+    font-size: 18px;
 }
 
 .link {

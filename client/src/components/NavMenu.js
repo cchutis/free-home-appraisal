@@ -7,11 +7,11 @@ import UserLogin from "../components/UserLogin";
 export default function NavMenu() {
     return (
         <ul className="main-menu">
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/about'>About</Link></li>
-            <li><Link to='/estimates'>Estimates</Link></li>
-            <li><Link to='/sell-my-home'>Sell my Home</Link></li>
-            <li><Link to='/contact'>Contact</Link></li>
+            <li><Link to='/'>HOME</Link></li>
+            <li><Link to='/about'>ABOUT</Link></li>
+            <li><Link to='/estimates'>ESTIMATES</Link></li>
+            <li><Link to='/sell-my-home'>SELL MY HOME</Link></li>
+            <li><Link to='/contact'>CONTACT</Link></li>
             <li><UserLogin /></li>
         </ul>
     )

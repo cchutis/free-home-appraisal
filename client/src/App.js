@@ -151,7 +151,6 @@ export default class App extends Component {
   };
 
   parseHome = homeData => {
-    debugger
     const homeObj ={
       home_type: this.nodeFinder(homeData.useCode),
       year_built: this.nodeFinder(homeData.yearBuilt),
@@ -194,7 +193,7 @@ export default class App extends Component {
     const updatedEstimates = this.state.estimates.filter(
       estimate => {
         if (estimate.id === id) {
-          return null;
+          return estimate.value = 0;
         } else {
           return estimate;
         }

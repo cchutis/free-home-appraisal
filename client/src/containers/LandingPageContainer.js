@@ -14,11 +14,11 @@ export default function LandingPageContainer(props) {
             </div>
             <NavMenu />
             <div className="left-window">
-              <h1 style={{ fontSize: 40 }}>Get the most accurate estimates.</h1>
+              <h1 style={{ fontSize: 60 }}>Get the most accurate estimates.</h1>
               <NewSearch search={props.search} />
             </div>
           </div>
         </div>
       </div>
-    );
+    ); 
 }
