@@ -9,18 +9,27 @@ export default function FooterContainer() {
         <div className="footer">
           <LeftWidget />
           <CenterWidget />
-          <RightWidget />
+          {/* <RightWidget /> */}
         </div>
         <div className="footer-bar">
-          <p style={{ color: "white", fontSize: 12 }}>
-            ©2020 FreeHomeAppraisal.com - All Rights Reserved.
-          </p>
-          <img
+          <div>
+        <img
             className="logo-bottom"
             src="img/fha-logo-temp.png"
             alt="FHA Logo"
-            style={{ paddingRight: 30 }}
+            style={{ width: 200 }}
           />
+          {/* <p style={{ color: "white", fontSize: 12 }}>
+            ©2020 FreeHomeAppraisal.com - All Rights Reserved.
+          </p> */}
+          </div>
+          <div className="footer-nav">
+            <p>HOME</p>
+            <p>ABOUT</p>
+            <p>ESTIMATES</p>
+            <p>SELL YOUR HOME</p>
+            <p>CONTACT</p>
+          </div>
         </div>
       </div>
     );

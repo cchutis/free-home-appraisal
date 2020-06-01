@@ -2,6 +2,13 @@ html {
     scroll-behavior: smooth;
 }
 
+.flex-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between
+  }
+
 .App {
     text-align: center;
 }
@@ -191,27 +198,33 @@ p strong {
 }
 
 .footer {
-    height: 600px;
-    background: linear-gradient(231deg, #46be9480, #00d9ff85);
-    background-size: 200% 200%;
-    -webkit-animation: FooterSwell 6s ease infinite;
-    animation: FooterSwell 6s ease infinite;
+    width: 100%;
+    height: 400px;
+    background-color: #222222;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 100px;
+    
 }
 
 .widget {
-    background-color: rgba(49, 127, 173, 0.425);
-    height: 400px;
-    width: 400px;
-    margin: 40px;
-    border-radius: 10px;
+    /* background-color: rgba(49, 127, 173, 0.425); */
+    height: 66%;
+    width: 45%;
+    /* margin: 40px; */
+    /* border-radius: 10px; */
+    /* padding-right: 200px; */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 40px;
+    /* padding: 40px; */
+}
+
+.newsletter-widget {
+    width: 30% !important;
+    padding-top: 28px;
 }
 
 .widget h2 {
@@ -230,8 +243,21 @@ p strong {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-left: 50px;
-    background-color: rgba(49, 128, 173, 0.706);
+    padding: 0 100px;
+    padding-bottom: 20px;
+    background-color: #222222;
+}
+
+.footer-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.footer-nav p {
+    color: white;
+    font-family: 'Noto Sans', sans-serif;
+    padding: 0 10px;
+    font-size: 1.7em;
 }
 
 .logo-bottom {

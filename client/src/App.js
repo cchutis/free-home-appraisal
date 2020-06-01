@@ -151,6 +151,7 @@ export default class App extends Component {
   };
 
   parseHome = homeData => {
+    debugger
     const homeObj ={
       home_type: this.nodeFinder(homeData.useCode),
       year_built: this.nodeFinder(homeData.yearBuilt),
@@ -160,7 +161,7 @@ export default class App extends Component {
       bathrooms: this.nodeFinder(homeData.bathrooms),
       total_rooms: this.nodeFinder(homeData.totalRooms),
       sold_date: this.nodeFinder(homeData.lastSoldDate),
-      sold_price: this.nodeFinder(homeData.lastSoldPrice),
+      sold_price: this.nodeFinder(homeData.lastSoldPrice[0]._),
       street_address: this.nodeFinder(homeData.address[0].street[0]),
       city: this.nodeFinder(homeData.address[0].city[0]),
       state: this.nodeFinder(homeData.address[0].state[0]),
@@ -247,28 +248,35 @@ export default class App extends Component {
             <div className="header">
               <NavMenu />
             </div>
+            <div class="flex-wrapper">
             <AboutContent />
             <Footer />
+            </div>
           </Route>
           <Route exact path="/contact">
             <div className="header">
               <NavMenu />
             </div>
+            <div class="flex-wrapper">
             <ContactContent />
             <Footer />
+            </div>
           </Route>
           <Route exact path="/sell-my-home">
             <div className="header">
               <NavMenu />
             </div>
+            <div class="flex-wrapper">
             <SellMyHomeContent />
             <Footer />
+            </div>
           </Route>
           <Route exact path="/estimates">
             <NavContainer
               loggedin={this.state.isLoggedIn}
               search={this.getSearchResults}
             />
+            <div class="flex-wrapper">
             <Element name="search-results">
               {this.isEmpty(this.state.foundHome) ? (
                 <EmptySearchContainer isLoading={this.state.isLoading}/>
@@ -281,6 +289,7 @@ export default class App extends Component {
               )}
             </Element>
             <Footer />
+            </div>
           </Route>
           <Route path="/">
             <LandingPageContainer
