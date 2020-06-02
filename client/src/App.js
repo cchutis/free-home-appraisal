@@ -160,7 +160,7 @@ export default class App extends Component {
       bathrooms: this.nodeFinder(homeData.bathrooms),
       total_rooms: this.nodeFinder(homeData.totalRooms),
       sold_date: this.nodeFinder(homeData.lastSoldDate),
-      sold_price: this.nodeFinder(homeData.lastSoldPrice[0]._),
+      sold_price: this.nodeFinder(homeData.lastSoldPrice),
       street_address: this.nodeFinder(homeData.address[0].street[0]),
       city: this.nodeFinder(homeData.address[0].city[0]),
       state: this.nodeFinder(homeData.address[0].state[0]),
