@@ -88,7 +88,7 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     const mash_redfin_id = mash_redfin_id_data.content.id;
     const redfin_link = mash_redfin_id_data.content.url; 
 
-    const mash_redfin_data_url = `https://mashvisor-api.p.rapidapi.com/property/estimates/1826212?state=${state}`;
+    const mash_redfin_data_url = `https://mashvisor-api.p.rapidapi.com/property/estimates/${mash_redfin_id}?state=${state}`;
     const mash_redfin_data_res = await fetch(mash_redfin_data_url, {
         method: 'GET',
         headers: {
