@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import NavContainer from './containers/NavContainer';
 import Footer from './containers/FooterContainer';
 // eslint-disable-next-line
-import { Route, Switch, Router } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import APIContainer from './containers/APIContainer';
 import EmptySearchContainer from './containers/EmptySearchContainer';
 import LandingPageContainer from './containers/LandingPageContainer';

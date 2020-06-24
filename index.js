@@ -32,6 +32,8 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname+'/client/build/index.html')));
 
+
+
 app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     const parameters = {
         address: req.params.street_address,
@@ -39,17 +41,16 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
         rentzestimate: false
     }
 
-    
     const street_address = req.params.street_address;
     const city = req.params.city;
     const state = convertRegion(req.params.state);
     const zip = req.params.zip;
+    
     zillow.get('GetDeepSearchResults', parameters)
     .then(data => {
         zillow_data = data.response.results.result[0];
         return zillow_data;
     })
-    .catch(err => console.log(err));
 
     const realtor_id_url = `https://realtor.p.rapidapi.com/locations/auto-complete?input=${street_address}%20${city}%20${state}`;
     const realtor_id_res = await fetch(realtor_id_url, {
@@ -72,9 +73,23 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     });
     const realtor_home_data = await realtor_data_res.json();
 
+    var melissa_data;
     const melissa_url = `https://property.melissadata.net/v4/WEB/LookupProperty/?id=${melissa_token}&format=json&a1=${street_address}&city=${city}&state=${state}&cols=GrpEstimatedValue`;
-    const melissa_res = await fetch(melissa_url);
-    const melissa_data = await melissa_res.json();
+    await fetch(melissa_url).then(function (response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            return Promise.reject(response);
+        }
+    }).then(data => {
+        melissa_data = data;
+    })
+    .catch(function (error) {
+        console.warn(error)
+    })
+
+    // console.log(melissa_data.Records[0].Tax.MarketValueTotal)
+
 
     const mash_redfin_id_url = `https://mashvisor-api.p.rapidapi.com/property?zip_code=${zip}&address=${street_address}&city=${city}&state=${state}`;
     const mash_redfin_id_res = await fetch(mash_redfin_id_url, {
@@ -83,8 +98,17 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
             "x-rapidapi-host": "mashvisor-api.p.rapidapi.com",
             "x-rapidapi-key": process.env.X_RAPID_API_KEY
         }
-    })
-    const mash_redfin_id_data = await mash_redfin_id_res.json();
+    }).catch(err => {
+        console.error(err)
+        process.exit(1);
+    });
+
+    
+    const mash_redfin_id_data = await mash_redfin_id_res.json().catch(err => {
+        console.error(err)
+        process.exit(1);
+    });
+    
     const mash_redfin_id = mash_redfin_id_data.content.id;
     const redfin_link = mash_redfin_id_data.content.url; 
 
@@ -95,9 +119,23 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
             "x-rapidapi-host": "mashvisor-api.p.rapidapi.com",
             "x-rapidapi-key": process.env.X_RAPID_API_KEY
         }
-    })
-    const mash_redfin_data = await mash_redfin_data_res.json();
- 
+    }).catch(err => {
+        console.error(err)
+        process.exit(1);
+    });
+
+    let mash_redfin_data = await mash_redfin_data_res.json().catch(err => {
+        console.error(err)
+        process.exit(1);
+    });
+
+    function doesMashRedfinExist(estimateValue) {
+        if(typeof estimateValue !== null) {
+            return estimateValue
+        } else {
+            return 0
+        }
+    }
 
     const data = {
         zillow: zillow_data,
@@ -107,22 +145,19 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
             listing_id: realtor_id
         },
         melissa: {
-            value: melissa_data.Records
+            value: Number(melissa_data.Records[0].Tax.MarketValueTotal)
         },
         redfin: {
             listing_id: mash_redfin_id,
-            link: redfin_link,
-            value: mash_redfin_data.content.redfin_estimate
+            // link: redfin_link,
+            value: doesMashRedfinExist(mash_redfin_data.content.redfin_estimate)
         },
         mashvisor: {
-            value: mash_redfin_data.content.mashvisor_estimate
+            value: doesMashRedfinExist(mash_redfin_data.content.mashvisor_estimate)
         }
     }
     res.send(data);
-    console.log(data)
-
 })
-
 
 
 
