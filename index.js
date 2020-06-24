@@ -35,6 +35,11 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname+'/client/build/index
 
 
 app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
+    var melissa_data;
+    var zillow_data;
+    var realtor_data;
+    var mash_redfin_data;
+    
     const parameters = {
         address: req.params.street_address,
         citystatezip: `${req.params.city}, ${req.params.state}`,
@@ -45,35 +50,59 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     const city = req.params.city;
     const state = convertRegion(req.params.state);
     const zip = req.params.zip;
+
+    //ZILLOW CALLS
     
     zillow.get('GetDeepSearchResults', parameters)
     .then(data => {
         zillow_data = data.response.results.result[0];
-        return zillow_data;
     })
 
+    try {
+    // REALTOR CALLS
+
     const realtor_id_url = `https://realtor.p.rapidapi.com/locations/auto-complete?input=${street_address}%20${city}%20${state}`;
-    const realtor_id_res = await fetch(realtor_id_url, {
+    await fetch(realtor_id_url, {
         method: 'GET',
         headers: {
             "x-rapidapi-host": "realtor.p.rapidapi.com",
             "x-rapidapi-key": process.env.X_RAPID_API_KEY
         }
-    });
-    const realtor_id_data = await realtor_id_res.json();
-    const realtor_id = realtor_id_data.autocomplete[0].mpr_id;
-
-    const realtor_data_url = `https://realtor.p.rapidapi.com/properties/detail?listing_id=${realtor_id}&prop_status=for_sale&property_id=${realtor_id}`;
-    const realtor_data_res = await fetch(realtor_data_url, {
-        method: 'GET',
-        headers: {
-            "x-rapidapi-host": "realtor.p.rapidapi.com",
-            "x-rapidapi-key": process.env.X_RAPID_API_KEY
+    })
+    .then(function (response) {
+        if(response.ok) {
+            return response.json()
+        } else {
+            return Promise.reject(response)
         }
-    });
-    const realtor_home_data = await realtor_data_res.json();
+    })
+    .then(function (data) {
+        const realtor_id = data.autocomplete[0].mpr_id;
+        const realtor_data_url = `https://realtor.p.rapidapi.com/properties/detail?listing_id=${realtor_id}&prop_status=for_sale&property_id=${realtor_id}`;
+        return fetch(realtor_data_url, {
+            method: 'GET',
+            headers: {
+                "x-rapidapi-host": "realtor.p.rapidapi.com",
+                "x-rapidapi-key": process.env.X_RAPID_API_KEY
+            }
+        })
+        .then(function(response) {
+            if(response.ok) {
+                return response.json()
+            } else {
+                return Promise.reject(response)
+            }
+        })
+        .then(function (data) {
+            realtor_data = data
+        })
+        .catch(function (error) {
+            console.warn(error)
+        })
+    })
 
-    var melissa_data;
+    //MELISSA CALLS
+
     const melissa_url = `https://property.melissadata.net/v4/WEB/LookupProperty/?id=${melissa_token}&format=json&a1=${street_address}&city=${city}&state=${state}&cols=GrpEstimatedValue`;
     await fetch(melissa_url).then(function (response) {
         if(response.ok) {
@@ -91,69 +120,89 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     // console.log(melissa_data.Records[0].Tax.MarketValueTotal)
 
 
+    //MASH_REDFIN CALLS 
+
     const mash_redfin_id_url = `https://mashvisor-api.p.rapidapi.com/property?zip_code=${zip}&address=${street_address}&city=${city}&state=${state}`;
-    const mash_redfin_id_res = await fetch(mash_redfin_id_url, {
+    await fetch(mash_redfin_id_url, {
         method: 'GET',
         headers: {
             "x-rapidapi-host": "mashvisor-api.p.rapidapi.com",
             "x-rapidapi-key": process.env.X_RAPID_API_KEY
         }
-    }).catch(err => {
-        console.error(err)
-        process.exit(1);
-    });
-
-    
-    const mash_redfin_id_data = await mash_redfin_id_res.json().catch(err => {
-        console.error(err)
-        process.exit(1);
-    });
-    
-    const mash_redfin_id = mash_redfin_id_data.content.id;
-    const redfin_link = mash_redfin_id_data.content.url; 
-
-    const mash_redfin_data_url = `https://mashvisor-api.p.rapidapi.com/property/estimates/${mash_redfin_id}?state=${state}`;
-    const mash_redfin_data_res = await fetch(mash_redfin_data_url, {
-        method: 'GET',
-        headers: {
-            "x-rapidapi-host": "mashvisor-api.p.rapidapi.com",
-            "x-rapidapi-key": process.env.X_RAPID_API_KEY
-        }
-    }).catch(err => {
-        console.error(err)
-        process.exit(1);
-    });
-
-    let mash_redfin_data = await mash_redfin_data_res.json().catch(err => {
-        console.error(err)
-        process.exit(1);
-    });
-
-    function doesMashRedfinExist(estimateValue) {
-        if(typeof estimateValue !== null) {
-            return estimateValue
+    })
+    .then(function (response) {
+        if(response.ok) {
+            return response.json()
         } else {
-            return 0
+            return Promise.reject(response)
         }
-    }
+    })
+    .then(function (data) {
+        console.log(data.content.id)
+        if(data.content.id !== undefined){
+            const mash_redfin_id = data.content.id;
+            const mash_redfin_data_url = `https://mashvisor-api.p.rapidapi.com/property/estimates/${mash_redfin_id}?state=${state}`;
+            return fetch(mash_redfin_data_url, {
+                method: 'GET',
+                headers: {
+                    "x-rapidapi-host": "mashvisor-api.p.rapidapi.com",
+                    "x-rapidapi-key": process.env.X_RAPID_API_KEY
+                }
+            })
+            .then(function(response) {
+                if(response.ok) {
+                    return response.json()
+                } else {
+                    return Promise.reject(response)
+                }
+            })
+            .then(function (data) {
+                mash_redfin_data = data
+            })
+            .catch(function (error) {
+                console.warn(error)
+            })
+        } else {
+            mash_redfin_data = {
+                content: {
+                    redfin_estimate: 0,
+                    mashvisor_estimate: 0
+                }
+            }
+        }
+    })
+
+    
+} catch (error) {
+    // process.exit(1)
+    return console.warn(error)
+}
+
+    // function doesEstimateExist(estimateValue) {
+    //     if(typeof estimateValue === undefined) {
+    //         return 0
+    //     } else {
+    //         return estimateValue
+    //     }
+    // }
 
     const data = {
         zillow: zillow_data,
         realtor: {
-            value: realtor_home_data.listing.price,
-            link: realtor_home_data.listing.web_url,
-            listing_id: realtor_id
+            value: realtor_data.listing.price,
+            // link: realtor_data.listing.web_url,
+            // listing_id: realtor_id
         },
         melissa: {
-            value: Number(melissa_data.Records[0].Tax.MarketValueTotal)
+            value: Number(melissa_data.Records[0].Tax.MarketValueTotal) 
         },
         redfin: {
-            listing_id: mash_redfin_id,
+            // listing_id: mash_redfin_id,
             // link: redfin_link,
-            value: doesMashRedfinExist(mash_redfin_data.content.redfin_estimate)
+            value: mash_redfin_data.content.redfin_estimate 
         },
         mashvisor: {
-            value: doesMashRedfinExist(mash_redfin_data.content.mashvisor_estimate)
+            value: mash_redfin_data.content.mashvisor_estimate
         }
     }
     res.send(data);
