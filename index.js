@@ -117,7 +117,6 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
         console.warn(error)
     })
 
-    // console.log(melissa_data.Records[0].Tax.MarketValueTotal)
 
 
     //MASH_REDFIN CALLS 
@@ -174,17 +173,8 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
 
     
 } catch (error) {
-    // process.exit(1)
     return console.warn(error)
 }
-
-    // function doesEstimateExist(estimateValue) {
-    //     if(typeof estimateValue === undefined) {
-    //         return 0
-    //     } else {
-    //         return estimateValue
-    //     }
-    // }
 
     const data = {
         zillow: zillow_data,

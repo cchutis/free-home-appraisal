@@ -101,7 +101,7 @@ export default class App extends Component {
     })
     const api_url = estimatesAPI + `/${street_address}/${city}/${state}/${zip}`;
     const response = await fetch(api_url);
-    const fullData = await response.json();
+    const fullData = await response.json().catch(err => console.log(err));
     const foundHome = fullData.zillow;
 
     console.log("foundHome:", foundHome);
