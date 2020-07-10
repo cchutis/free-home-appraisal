@@ -199,7 +199,6 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
 })
 
 
-
 function convertRegion(input) {
     var states = [
         ['Alabama', 'AL'],

@@ -25,6 +25,7 @@ export default function EstimateContainer(props) {
             <EstimateCard data={props.estimates.redfinEstimate} deleteEstimate={props.deleteEstimate} />
             <EstimateCard data={props.estimates.melissaEstimate} deleteEstimate={props.deleteEstimate} />
             <EstimateCard data={props.estimates.mashvisorEstimate} deleteEstimate={props.deleteEstimate} />
+            <EstimateCard data={props.estimates.coreLogicEstimate} deleteEstimate={props.deleteEstimate} />
           </Grid>
         </div>
     )

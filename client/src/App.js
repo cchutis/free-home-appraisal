@@ -65,6 +65,12 @@ export default class App extends Component {
         img: './img/mash-fit.png',
         value: 0,
       },
+      coreLogicEstimate: {
+        id: 6,
+        site_name: 'Core Logic',
+        img: './img/corelogic-fit.png',
+        value: 0
+      }
     },
     isLoggedIn: false,
     user: {},
@@ -134,7 +140,11 @@ export default class App extends Component {
               mashvisorEstimate: {
                 ...this.state.estimates.mashvisorEstimate,
                 value: fullData.mashvisor.value
-              }
+              },
+              // coreLogicEstimate: {
+              //   ...this.state.estimates.coreLogicEstimate,
+              //   value: fullData.corelogic.value
+              // }
             }
           });
     } else {
@@ -189,19 +199,15 @@ export default class App extends Component {
   }
 
   deleteEstimate = id => {
-    console.log(id);
-    const updatedEstimates = this.state.estimates.filter(
-      estimate => {
-        if (estimate.id === id) {
-          return estimate.value = 0;
-        } else {
-          return estimate;
-        }
-      }
-    );
-    this.setState({
-      estimates: updatedEstimates
-    });
+    debugger;
+    // console.log(id);
+    // for(let i = 0; i < this.state.estimates.length; i++) {
+    //   if(this.state.estimates[i].keys.id === id) {
+    //     console.log('Found ID')
+    //   } else {
+    //     console.log('how are you seeing this')
+    //   }
+    // }
   };
 
   scrollToResults = () => {
