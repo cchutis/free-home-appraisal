@@ -30,7 +30,9 @@ var port = process.env.PORT || 4000;
 // Serve Static files from react
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+
 app.get('/', (req, res) => res.sendFile(path.join(__dirname+'/client/build/index.html')));
+
 
 
 
@@ -198,6 +200,9 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     res.send(data);
 })
 
+app.get('*', function(req, res) {
+    res.sendFile('index.html', {root: path.join(__dirname, '/client/build/')});
+  });
 
 function convertRegion(input) {
     var states = [
