@@ -41,6 +41,7 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     var zillow_data;
     var realtor_data;
     var mash_redfin_data;
+    var realtyMole_data;
     
     const parameters = {
         address: req.params.street_address,
@@ -96,11 +97,44 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
             }
         })
         .then(function (data) {
-            realtor_data = data
+            if(data.listing.price !== undefined) {
+            realtor_data = data.listing.price
+            } else {
+                realtor_data = 0
+            }
         })
         .catch(function (error) {
             console.warn(error)
         })
+    })
+
+    //REALTY MOLE CALLS
+
+    const realtyMole_url = `https://realty-mole-property-api.p.rapidapi.com/properties?state=${state}&address=${street_address}%2C%20${city}%2C%20${state}%20${zip}`;
+    
+    await fetch(realtyMole_url, {
+        method: 'GET',
+        headers: {
+            "x-rapidapi-host": "realty-mole-property-api.p.rapidapi.com",
+            "x-rapidapi-key": process.env.X_RAPID_API_KEY
+        }
+    })
+    .then(function (response) {
+        if(response.ok) {
+            return response.json()
+        } else {
+            return Promise.reject(response)
+        }
+    })
+    .then(function (data) {
+        if(data[0].lastSalePrice !== undefined) {
+        realtyMole_data = data[0].lastSalePrice
+        } else {
+            realtyMole_data = 0
+        }
+    })
+    .catch(function (error) {
+        console.warn(error)
     })
 
     //MELISSA CALLS
@@ -113,7 +147,11 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
             return Promise.reject(response);
         }
     }).then(data => {
-        melissa_data = data;
+        if(data.Records[0].Tax.MarketValueTotal !== undefined) {
+        melissa_data = data.Records[0].Tax.MarketValueTotal;
+        } else {
+            melissa_data = 0
+        }
     })
     .catch(function (error) {
         console.warn(error)
@@ -181,12 +219,12 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     const data = {
         zillow: zillow_data,
         realtor: {
-            value: realtor_data.listing.price,
+            value: realtor_data,
             // link: realtor_data.listing.web_url,
             // listing_id: realtor_id
         },
         melissa: {
-            value: Number(melissa_data.Records[0].Tax.MarketValueTotal) 
+            value: Number(melissa_data) 
         },
         redfin: {
             // listing_id: mash_redfin_id,
@@ -195,8 +233,12 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
         },
         mashvisor: {
             value: mash_redfin_data.content.mashvisor_estimate
+        },
+        realtyMole: {
+            value: realtyMole_data
         }
     }
+    // console.log(data)
     res.send(data);
 })
 

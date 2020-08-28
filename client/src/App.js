@@ -65,9 +65,9 @@ export default class App extends Component {
         img: './img/mash-fit.png',
         value: 0,
       },
-      coreLogicEstimate: {
+      realtyMoleValue: {
         id: 6,
-        site_name: 'Core Logic',
+        site_name: 'Realty Mole',
         img: './img/corelogic-fit.png',
         value: 0
       }
@@ -141,10 +141,10 @@ export default class App extends Component {
                 ...this.state.estimates.mashvisorEstimate,
                 value: fullData.mashvisor.value
               },
-              // coreLogicEstimate: {
-              //   ...this.state.estimates.coreLogicEstimate,
-              //   value: fullData.corelogic.value
-              // }
+              realtyMoleValue: {
+                ...this.state.estimates.realtyMoleValue,
+                value: fullData.realtyMole.value
+              }
             }
           });
     } else {
@@ -199,7 +199,7 @@ export default class App extends Component {
   }
 
   deleteEstimate = id => {
-    debugger;
+    // debugger;
     // console.log(id);
     // for(let i = 0; i < this.state.estimates.length; i++) {
     //   if(this.state.estimates[i].keys.id === id) {
