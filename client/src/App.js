@@ -68,7 +68,7 @@ export default class App extends Component {
       realtyMoleValue: {
         id: 6,
         site_name: 'Realty Mole',
-        img: './img/corelogic-fit.png',
+        img: './img/mole-fit.png',
         value: 0
       }
     },
