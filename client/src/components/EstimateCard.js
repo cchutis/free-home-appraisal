@@ -46,7 +46,7 @@ export default function EstimateCard(props) {
             {site_name} Estimate
           </Typography>
           <Typography gutterBottom variant="h4" component="h2">
-            {value ? '$' + numberWithCommas(value) : <CircularProgress size={20} />}
+            {value ? '$' + numberWithCommas(value) : 'Not Found'}
             
           </Typography>
         </CardContent>
