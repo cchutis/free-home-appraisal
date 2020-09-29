@@ -33,7 +33,7 @@ export default function EstimateCard(props) {
   const classes = useStyles();
 
     return (
-      <Card className={value ? classes.root : classes.root + ' disabled'}>
+      <Card className={value ? classes.root : classes.root + ' disabled'} data-id={id}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -52,7 +52,7 @@ export default function EstimateCard(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onClick={() => props.deleteEstimate(id)}>
+          <Button size="small" color="primary" onClick={(e) => props.toggleEstimate(e)}>
             <small>Remove Listing</small>
           </Button>
           <Button className="link-btn" size="small" color="primary" href={link} target="_blank">

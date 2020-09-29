@@ -1,7 +1,7 @@
 import React from 'react';
 import LeftWidget from '../components/LeftWidget';
 import CenterWidget from '../components/CenterWidget';
-import RightWidget from '../components/RightWidget';
+// import RightWidget from '../components/RightWidget';
 
 export default function FooterContainer() {
     return (

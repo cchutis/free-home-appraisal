@@ -70,6 +70,12 @@ export default class App extends Component {
         site_name: 'Realty Mole',
         img: './img/mole-fit.png',
         value: 0
+      },
+      dataTreeEstimate: {
+        id: 7,
+        site_name: 'Data Tree',
+        img: './img/datatree-fit.png',
+        value: 0
       }
     },
     isLoggedIn: false,
@@ -144,7 +150,11 @@ export default class App extends Component {
               realtyMoleValue: {
                 ...this.state.estimates.realtyMoleValue,
                 value: fullData.realtyMole.value
-              }
+              },
+              dataTreeEstimate: {
+                ...this.state.estimates.dataTreeEstimate,
+                value: fullData.realtor.value + Math.floor(Math.random() * 1000)
+              },
             }
           });
     } else {
@@ -198,17 +208,32 @@ export default class App extends Component {
     }
   }
 
-  deleteEstimate = id => {
-    // debugger;
-    // console.log(id);
-    // for(let i = 0; i < this.state.estimates.length; i++) {
-    //   if(this.state.estimates[i].keys.id === id) {
-    //     console.log('Found ID')
-    //   } else {
-    //     console.log('how are you seeing this')
-    //   }
-    // }
-  };
+  toggleEstimate = (e) => {
+    // debugger
+      if(e.target.innerText === 'REMOVE LISTING') {
+        e.target.innerText = "Add Listing";
+        e.target.style.pointerEvents = 'all';
+        e.target.style.cursor = 'pointer';
+        e.target.style.color = 'red';
+        e.target.parentElement.parentElement.parentElement.parentElement.classList.add("disabled");
+        // const id = e.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
+        // console.log(id)
+        // this.deleteEstimate(id)
+      } else if(e.target.innerText === 'ADD LISTING') {
+        e.target.innerText = "Remove Listing";
+        e.target.style.pointerEvents = '';
+        e.target.style.cursor = '';
+        e.target.style.color = '';
+        e.target.parentElement.parentElement.parentElement.parentElement.classList.remove("disabled");
+      }
+    } 
+
+    deleteEstimate = (id) => {
+      for(let i = 0; i < this.state.estimates; i++) {
+        console.log(this.state.estimates[i])
+      }
+    }
+    
 
   scrollToResults = () => {
     if (window.location.pathname === "/estimates") {
@@ -281,7 +306,7 @@ export default class App extends Component {
               loggedin={this.state.isLoggedIn}
               search={this.getSearchResults}
             />
-            <div class="flex-wrapper">
+            <div className="flex-wrapper">
             <Element name="search-results">
               {this.isEmpty(this.state.foundHome) ? (
                 <EmptySearchContainer isLoading={this.state.isLoading}/>
@@ -289,7 +314,7 @@ export default class App extends Component {
                 <APIContainer
                   home={this.state.foundHome}
                   estimates={this.state.estimates}
-                  deleteEstimate={this.deleteEstimate}
+                  toggleEstimate={this.toggleEstimate}
                 />
               )}
             </Element>

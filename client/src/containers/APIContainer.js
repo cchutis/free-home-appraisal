@@ -12,7 +12,7 @@ export default function APIContainer(props) {
         <Container maxWidth="lg">
             <Grid container direction="row" justify="center" alignItems="center">
                 <HouseCard home={props.home} />
-                <EstimateContainer estimates={props.estimates} deleteEstimate={props.deleteEstimate} />
+                <EstimateContainer estimates={props.estimates} toggleEstimate={props.toggleEstimate} />
                 <FHAEstimate estimates={props.estimates} />
             </Grid>
         </Container>

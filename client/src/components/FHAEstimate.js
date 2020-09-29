@@ -13,7 +13,8 @@ export default class FHAEstimate extends Component {
       const melissa = this.props.estimates.melissaEstimate.value;
       const mashvisor = this.props.estimates.mashvisorEstimate.value;
       const realtyMole = this.props.estimates.realtyMoleValue.value;
-      let arr = [zillow, redfin, realtor, melissa, mashvisor, realtyMole];
+      const dataTree = this.props.estimates.dataTreeEstimate.value;
+      let arr = [zillow, redfin, realtor, melissa, mashvisor, realtyMole, dataTree];
       // console.log(arr)
       let final = arr.filter(estimate => estimate !== 0 && typeof estimate == 'number');
 
