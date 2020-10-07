@@ -35,6 +35,7 @@ export default class App extends Component {
         img: './img/zillow-fit.png',
         link: '',
         value: 0,
+        active: true
       },
       realtorEstimate: {
         id: 2,
@@ -43,6 +44,7 @@ export default class App extends Component {
         listing_id: '',
         link: '',
         value: 0,
+        active: true
       },
       redfinEstimate: {
         id: 3,
@@ -51,6 +53,7 @@ export default class App extends Component {
         listing_id: '',
         link: '',
         value: 0,
+        active: true
       },
       melissaEstimate: {
         id: 4,
@@ -58,24 +61,28 @@ export default class App extends Component {
         img: './img/melissa-fit.png',
         link: '',
         value: 0,
+        active: true
       },
       mashvisorEstimate: {
         id: 5,
         site_name: 'Mashvisor',
         img: './img/mash-fit.png',
         value: 0,
+        active: true
       },
       realtyMoleValue: {
         id: 6,
         site_name: 'Realty Mole',
         img: './img/mole-fit.png',
-        value: 0
+        value: 0,
+        active: true
       },
       dataTreeEstimate: {
         id: 7,
         site_name: 'Data Tree',
         img: './img/datatree-fit.png',
-        value: 0
+        value: 0,
+        active: true
       }
     },
     isLoggedIn: false,
@@ -208,7 +215,7 @@ export default class App extends Component {
     }
   }
 
-  toggleEstimate = (e) => {
+  toggleEstimate = (e, id) => {
     // debugger
       if(e.target.innerText === 'REMOVE LISTING') {
         e.target.innerText = "Add Listing";
@@ -216,6 +223,10 @@ export default class App extends Component {
         e.target.style.cursor = 'pointer';
         e.target.style.color = 'red';
         e.target.parentElement.parentElement.parentElement.parentElement.classList.add("disabled");
+        for(const estimate in this.state.estimates) {
+          console.log(estimate.id) 
+        }
+
         // const id = e.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
         // console.log(id)
         // this.deleteEstimate(id)

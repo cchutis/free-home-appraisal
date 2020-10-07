@@ -29,7 +29,7 @@ function numberWithCommas(x) {
 }
 
 export default function EstimateCard(props) {
-  const {id, site_name, value, img, link} = props.data;
+  const {id, site_name, value, img, link, active} = props.data;
   const classes = useStyles();
 
     return (
@@ -45,14 +45,13 @@ export default function EstimateCard(props) {
             <Typography variant="body2" color="textSecondary" component="p">
               {site_name} Estimate
           </Typography>
-            <Typography gutterBottom variant="h4" component="h2">
+              <Typography gutterBottom variant="h4" component="h2">
               {value ? '$' + numberWithCommas(value) : 'Not Found'}
-
-            </Typography>
+              </Typography>  
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onClick={(e) => props.toggleEstimate(e)}>
+          <Button size="small" color="primary" onClick={(e) => props.toggleEstimate(e, id)}>
             <small>Remove Listing</small>
           </Button>
           <Button className="link-btn" size="small" color="primary" href={link} target="_blank">

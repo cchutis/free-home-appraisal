@@ -4,19 +4,20 @@ import Grid from '@material-ui/core/Grid';
 
 export default class FHAEstimate extends Component {
 
-    getEstimates = (props) => {
+  getEstimates = (props) => {
+    const {zillowEstimate, redfinEstimate, realtorEstimate, melissaEstimate, mashvisorEstimate, realtyMoleValue, dataTreeEstimate} = this.props.estimates;
       // let final = [];
       // console.log(this.props.estimates)
-      const zillow = this.props.estimates.zillowEstimate.value;
-      const redfin = this.props.estimates.redfinEstimate.value;
-      const realtor = this.props.estimates.realtorEstimate.value;
-      const melissa = this.props.estimates.melissaEstimate.value;
-      const mashvisor = this.props.estimates.mashvisorEstimate.value;
-      const realtyMole = this.props.estimates.realtyMoleValue.value;
-      const dataTree = this.props.estimates.dataTreeEstimate.value;
+      const zillow = zillowEstimate.active ? zillowEstimate.value : null;
+      const redfin = redfinEstimate.active ? redfinEstimate.value : null;
+      const realtor = realtorEstimate.active ? realtorEstimate.value : null;
+      const melissa = melissaEstimate.active ? melissaEstimate.value : null;
+      const mashvisor = mashvisorEstimate.active ? mashvisorEstimate.value : null;
+      const realtyMole = realtyMoleValue.active ? realtyMoleValue.value : null;
+      const dataTree = dataTreeEstimate.active ? dataTreeEstimate.value : null;
       let arr = [zillow, redfin, realtor, melissa, mashvisor, realtyMole, dataTree];
       // console.log(arr)
-      let final = arr.filter(estimate => estimate !== 0 && typeof estimate == 'number');
+      let final = arr.filter(estimate => estimate !== null && typeof estimate == 'number');
 
       // console.log(final)
       return Math.round(final.reduce((a, b) => a + b, 0) / final.length);
