@@ -215,7 +215,7 @@ export default class App extends Component {
     }
   }
 
-  toggleEstimate = (e, id) => {
+  toggleEstimate = (e, id, props) => {
     // debugger
       if(e.target.innerText === 'REMOVE LISTING') {
         e.target.innerText = "Add Listing";
@@ -223,8 +223,76 @@ export default class App extends Component {
         e.target.style.cursor = 'pointer';
         e.target.style.color = 'red';
         e.target.parentElement.parentElement.parentElement.parentElement.classList.add("disabled");
-        for(const estimate in this.state.estimates) {
-          console.log(estimate.id) 
+        if(id === 1) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              zillowEstimate: {
+                ...this.state.estimates.zillowEstimate,
+                active: false
+              }
+            }
+          })
+        } else if (id === 2) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              realtorEstimate: {
+                ...this.state.estimates.realtorEstimate,
+                active: false
+              }
+            }
+          })
+        } else if (id === 3) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              redfinEstimate: {
+                ...this.state.estimates.redfinEstimate,
+                active: false
+              }
+            }
+          })
+        } else if (id === 4) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              melissaEstimate: {
+                ...this.state.estimates.melissaEstimate,
+                active: false
+              }
+            }
+          })
+        } else if (id === 5) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              mashvisorEstimate: {
+                ...this.state.estimates.mashvisorEstimate,
+                active: false
+              }
+            }
+          })
+        } else if (id === 6) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              realtyMoleValue: {
+                ...this.state.estimates.realtyMoleValue,
+                active: false
+              }
+            }
+          })
+        } else if (id === 7) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              dataTreeEstimate: {
+                ...this.state.estimates.dataTreeEstimate,
+                active: false
+              }
+            }
+          })
         }
 
         // const id = e.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
