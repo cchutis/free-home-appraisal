@@ -28,6 +28,14 @@ h1, h2, h3, p {
     background-repeat: no-repeat;
 }
 
+.hero-overlay {
+    background: linear-gradient(-45deg, #ee765280, #e73c7e88, #23a5d585, #23d5ab83);
+    background-size: 400% 400%;
+    -webkit-animation: gradient-bg 15s ease infinite;
+    animation: gradient-bg 15s ease infinite;
+    height: 100%;
+}
+
 .header {
     height: 100px;
     width: 100vw;
@@ -474,6 +482,34 @@ ul {
 .disabled {
     opacity: 0.5;
     pointer-events: none;
+}
+
+@-webkit-keyframes gradient-bg {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes gradient-bg {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* WAVES ANIMATION HOMEPAGE */

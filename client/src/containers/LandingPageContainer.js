@@ -8,6 +8,7 @@ export default function LandingPageContainer(props) {
     return (
       <div className="main">
         <div className="hero-header">
+          <div className="hero-overlay">
           <div className="fade">
             <div className="logo">
               <Logo />
@@ -18,6 +19,7 @@ export default function LandingPageContainer(props) {
               <p style={{ fontSize: 15, marginTop: 0 }}>Find your home's value fast. Type in an address below to begin.</p>
               <NewSearch search={props.search} />
             </div>
+          </div>
           </div>
         </div>
         <div className="shapes-container">
