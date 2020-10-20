@@ -304,6 +304,77 @@ export default class App extends Component {
         e.target.style.cursor = '';
         e.target.style.color = '';
         e.target.parentElement.parentElement.parentElement.parentElement.classList.remove("disabled");
+        if (id === 1) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              zillowEstimate: {
+                ...this.state.estimates.zillowEstimate,
+                active: true
+              }
+            }
+          })
+        } else if (id === 2) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              realtorEstimate: {
+                ...this.state.estimates.realtorEstimate,
+                active: true
+              }
+            }
+          })
+        } else if (id === 3) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              redfinEstimate: {
+                ...this.state.estimates.redfinEstimate,
+                active: true
+              }
+            }
+          })
+        } else if (id === 4) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              melissaEstimate: {
+                ...this.state.estimates.melissaEstimate,
+                active: true
+              }
+            }
+          })
+        } else if (id === 5) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              mashvisorEstimate: {
+                ...this.state.estimates.mashvisorEstimate,
+                active: true
+              }
+            }
+          })
+        } else if (id === 6) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              realtyMoleValue: {
+                ...this.state.estimates.realtyMoleValue,
+                active: true
+              }
+            }
+          })
+        } else if (id === 7) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              dataTreeEstimate: {
+                ...this.state.estimates.dataTreeEstimate,
+                active: true
+              }
+            }
+          })
+        }
       }
     } 
 
