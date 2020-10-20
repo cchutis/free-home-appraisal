@@ -2,6 +2,10 @@ html {
     scroll-behavior: smooth;
 }
 
+h1, h2, h3, p {
+    color: rgb(61, 61, 61);
+}
+
 .flex-wrapper {
     display: flex;
     min-height: 100vh;
@@ -53,6 +57,7 @@ html {
     flex-direction: column;
     border-radius: 10px;
     margin-top: 200px;
+    padding: 20px 0;
 }
 
 .fade {
@@ -184,10 +189,6 @@ h1 {
     position: relative;
     display: flex;
     flex-direction: row;
-}
-
-p {
-    color: black;
 }
 
 p strong {

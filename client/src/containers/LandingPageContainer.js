@@ -14,7 +14,8 @@ export default function LandingPageContainer(props) {
             </div>
             <NavMenu />
             <div className="left-window">
-              <h1 style={{ fontSize: 40 }}>Get the most accurate estimates.</h1>
+              <h1 style={{ fontSize: 40, marginBottom: 0 }}>Get the most accurate estimates.</h1>
+              <p style={{ fontSize: 15, marginTop: 0 }}>Find your home's value fast. Type in an address below to begin.</p>
               <NewSearch search={props.search} />
             </div>
           </div>
