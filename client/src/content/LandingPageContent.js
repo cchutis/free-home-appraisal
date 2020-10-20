@@ -5,8 +5,8 @@ const LandingPageContent = () => {
       <div>
         <div className="landing-info section-1">
           <div className="home-text-right">
-            <h2 style={{fontSize: 50}}>Estimating Solutions: Simplified.</h2>
-            <p>Are you thinking about selling your current house? Do you want to
+            <h2 style={{fontSize: 40}}>Estimating Solutions: Simplified.</h2>
+            <p style={{ fontSize: 16 }}>Are you thinking about selling your current house? Do you want to
             purchase a new home? Or, maybe you just want to refinance while
             interest rates are low? Whatever the case, you will need a property
             appraisal to determine the value of the home or property in
