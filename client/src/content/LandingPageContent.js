@@ -20,7 +20,7 @@ const LandingPageContent = () => {
           </div>
         </div>
         <div className="landing-info section-2">PLACEHOLDER</div>
-        <div className="landing-info section-3">PLACEHOLDER</div>
+        <div className="landing-info section-3">PLACE HOLDER </div>
       </div>
     );
 }

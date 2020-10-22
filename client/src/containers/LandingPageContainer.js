@@ -1,8 +1,26 @@
 import React from 'react';
 import NavMenu from '../components/NavMenu';
 import Logo from '../components/Logo';
-// import SearchBar from '../components/SearchBar';
-import NewSearch from '../components/NewSearch';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+
+
+const CTAButton = withStyles({
+  root: {
+    background: 'linear-gradient(45deg, #3f51b5b5 30%, #5db1b5 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 48,
+    width: 200,
+    padding: '0 30px',
+    margin: '10px 50px 40px 50px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  },
+  label: {
+    textTransform: 'capitalize',
+  }
+})(Button);
 
 export default function LandingPageContainer(props) {
     return (
@@ -16,8 +34,8 @@ export default function LandingPageContainer(props) {
             <NavMenu />
             <div className="left-window">
               <h1 style={{ fontSize: 40, marginBottom: 0 }}>Get the most accurate estimates.</h1>
-              <p style={{ fontSize: 15, marginTop: 0 }}>Find your home's value fast. Type in an address below to begin.</p>
-              <NewSearch search={props.search} />
+              <p style={{ fontSize: 15, marginTop: 0 }}>Find your home's value fast. Click below to get started.</p>
+                <div><CTAButton variant="contained" color="primary" href="/estimates">GET ESTIMATE NOW</CTAButton><CTAButton variant="contained" color="primary" href="/about">LEARN MORE</CTAButton></div>
             </div>
           </div>
           </div>

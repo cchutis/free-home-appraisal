@@ -386,13 +386,9 @@ export default class App extends Component {
     
 
   scrollToResults = () => {
-    if (window.location.pathname === "/estimates") {
       scroller.scrollTo("search-results", {
         duration: 1000
       });
-    } else if (window.location.pathname === "/") {
-      window.location.pathname = "/estimates";
-    }
   };
 
   getSearchResults = queryObj => {
