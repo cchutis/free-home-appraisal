@@ -4,6 +4,10 @@ html {
     scroll-behavior: smooth;
 }
 
+body {
+    background-color: #fff !important;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Barlow', sans-serif;
     color: rgb(61, 61, 61);
@@ -119,6 +123,7 @@ p {
 #title {
     padding: 100px 0 40px 0;
     color: white;
+    font-family: 'Barlow', sans-serif;
 }
 
 h1 {
@@ -241,6 +246,13 @@ p strong {
     /* padding: 40px; */
 }
 
+.search-results {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .newsletter-widget {
     width: 30% !important;
     padding-top: 28px;
@@ -298,7 +310,8 @@ p strong {
     top: 20px;
     width: 100vw;
     right: 20px;
-    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-family: 'Barlow', sans-serif;
 }
 
 .main-menu li a {
@@ -314,7 +327,7 @@ p strong {
 
 .user-login {
     font-size: 1.3em;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Barlow', sans-serif;
 }
 
 .landing-info {
@@ -339,6 +352,7 @@ p strong {
     background-size: cover;
     color: white;
     font-size: 40px;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
 }
 
 .section-3 {

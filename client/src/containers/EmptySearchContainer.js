@@ -3,7 +3,7 @@ import { CircularProgress } from '@material-ui/core';
 
 export default function EmptySearchContainer(props) {
     return (
-        <div>
+        <div className="search-results">
             {props.isLoading ? 
             <div>
                 <CircularProgress />
