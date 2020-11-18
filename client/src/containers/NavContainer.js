@@ -8,6 +8,7 @@ import NewSearch from '../components/NewSearch';
 
 
 export default function NavContainer(props) {
+    
     return (
         <div className="nav">
             <div className="fade">

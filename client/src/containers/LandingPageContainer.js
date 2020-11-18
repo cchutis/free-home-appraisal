@@ -15,12 +15,12 @@ const CTAButton = withStyles({
     width: 200,
     padding: '0 30px',
     margin: '10px 50px 40px 50px',
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
   },
   label: {
     textTransform: 'capitalize',
   }
 })(Button);
+
 
 export default function LandingPageContainer(props) {
     return (

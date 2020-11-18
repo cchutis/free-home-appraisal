@@ -1,6 +1,7 @@
 import React from 'react';
 import LeftWidget from '../components/LeftWidget';
 import CenterWidget from '../components/CenterWidget';
+import Logo from '../components/Logo';
 // import RightWidget from '../components/RightWidget';
 
 export default function FooterContainer() {
@@ -13,12 +14,13 @@ export default function FooterContainer() {
         </div>
         <div className="footer-bar">
           <div>
-        <img
+        {/* <img
             className="logo-bottom"
-            src="img/fha-logo-temp.png"
+            src="img/Acculogo.png"
             alt="FHA Logo"
             style={{ width: 200 }}
-          />
+          /> */}
+          <Logo />
           {/* <p style={{ color: "white", fontSize: 12 }}>
             ©2020 FreeHomeAppraisal.com - All Rights Reserved.
           </p> */}

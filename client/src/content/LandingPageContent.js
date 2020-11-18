@@ -2,7 +2,7 @@ import React from 'react';
 
 const LandingPageContent = () => {
     return (
-      <div>
+      <div className="landing-content-body">
         <div className="landing-info section-1">
           <div className="home-text-right">
             <h2 style={{fontSize: 40}}>Estimating Solutions: Simplified.</h2>

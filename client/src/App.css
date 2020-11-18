@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow&family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Barlow&family=Montserrat&display=swap");
 
 html {
     scroll-behavior: smooth;
@@ -13,7 +13,6 @@ h1, h2, h3, h4, h5, h6 {
     color: rgb(61, 61, 61);
 }
 
-
 p {
     font-family: 'Montserrat', sans-serif;
     color: rgb(61, 61, 61);
@@ -23,15 +22,15 @@ p {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    justify-content: space-between
-  }
+    justify-content: space-between;
+}
 
 .App {
     text-align: center;
 }
 
 .hero-header {
-    height: 60vh;
+    height: 70vh;
     width: 100vw;
     background-image: url("./assets/img/landing.jpg");
     margin: 0;
@@ -77,7 +76,7 @@ p {
     align-items: center;
     flex-direction: column;
     border-radius: 10px;
-    margin-top: 200px;
+    margin-top: 5vh;
     padding: 20px 0;
 }
 
@@ -109,7 +108,7 @@ p {
 }
 
 .logo {
-    width: 160px;
+    width: 400px;
     padding: 10px 15px;
     color: white;
 }
@@ -230,19 +229,20 @@ p strong {
     justify-content: space-between;
     align-items: center;
     padding: 0 100px;
-    
 }
 
 .widget {
     /* background-color: rgba(49, 127, 173, 0.425); */
     height: 66%;
     width: 45%;
+
     /* margin: 40px; */
     /* border-radius: 10px; */
     /* padding-right: 200px; */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
     /* padding: 40px; */
 }
 
@@ -283,14 +283,14 @@ p strong {
 .footer-nav {
     display: flex;
     flex-direction: row;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .footer-nav p {
     color: white;
-    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-family: 'Barlow', sans-serif;
     padding: 0 10px;
-    font-size: 1.7em;
+    font-size: 1.4em;
 }
 
 .logo-bottom {
@@ -301,7 +301,8 @@ p strong {
 .main-menu {
     list-style-type: none;
     margin: 0;
-    padding: 0 5% 0 0;
+
+    /* padding: 0 5% 0 0; */
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -337,6 +338,10 @@ p strong {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.landing-content-body {
+    margin-top: -50px;
 }
 
 .section-1 {
@@ -564,8 +569,8 @@ ul {
 }
 
 .parallax > use {
-    -webkit-animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
-    animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+    -webkit-animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+    animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
 }
 
 .parallax > use:nth-child(1) {
