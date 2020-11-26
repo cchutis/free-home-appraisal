@@ -27,9 +27,9 @@ export default function FooterContainer() {
           </div>
           <div className="footer-nav">
             <p>HOME</p>
-            <p>ABOUT</p>
-            <p>ESTIMATES</p>
-            <p>SELL YOUR HOME</p>
+            {/* <p>ABOUT</p> */}
+            <p>ESTIMATE TOOL</p>
+            {/* <p>SELL YOUR HOME</p> */}
             <p>CONTACT</p>
           </div>
         </div>

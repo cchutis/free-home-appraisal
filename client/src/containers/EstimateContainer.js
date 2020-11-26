@@ -27,6 +27,7 @@ export default function EstimateContainer(props) {
             <EstimateCard data={props.estimates.mashvisorEstimate} toggleEstimate={props.toggleEstimate} />
             <EstimateCard data={props.estimates.realtyMoleValue} toggleEstimate={props.toggleEstimate} />
             <EstimateCard data={props.estimates.dataTreeEstimate} toggleEstimate={props.toggleEstimate} />
+            <EstimateCard data={props.estimates.estatedEstimate} toggleEstimate={props.toggleEstimate} />
           </Grid>
         </div>
     )

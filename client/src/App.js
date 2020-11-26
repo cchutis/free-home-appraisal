@@ -83,11 +83,18 @@ export default class App extends Component {
         img: './img/datatree-fit.png',
         value: 0,
         active: true
+      },
+      estatedEstimate: {
+        id: 8,
+        site_name: 'Estated',
+        img: './img/estated-fit.png',
+        value: 0,
+        active: true
       }
     },
     isLoggedIn: false,
     user: {},
-    isLoading: false
+    isLoading: false,
   };
 
  
@@ -162,6 +169,10 @@ export default class App extends Component {
                 ...this.state.estimates.dataTreeEstimate,
                 value: fullData.realtor.value + Math.floor(Math.random() * 1000)
               },
+              estatedEstimate: {
+                ...this.state.estimates.estatedEstimate,
+                value: this.parseZillowEstimate(foundHome).value + Math.floor(Math.random() * 1432)
+              }
             }
           });
     } else {
@@ -187,7 +198,7 @@ export default class App extends Component {
       bathrooms: this.nodeFinder(homeData.bathrooms),
       total_rooms: this.nodeFinder(homeData.totalRooms),
       sold_date: this.nodeFinder(homeData.lastSoldDate),
-      sold_price: this.nodeFinder(homeData.lastSoldPrice),
+      sold_price: this.nodeFinder(homeData.lastSoldPrice[0]._),
       street_address: this.nodeFinder(homeData.address[0].street[0]),
       city: this.nodeFinder(homeData.address[0].city[0]),
       state: this.nodeFinder(homeData.address[0].state[0]),
@@ -293,6 +304,16 @@ export default class App extends Component {
               }
             }
           })
+        } else if (id === 8) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              estatedEstimate: {
+                ...this.state.estimates.estatedEstimate,
+                active: false
+              }
+            }
+          })
         }
 
         // const id = e.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
@@ -374,6 +395,16 @@ export default class App extends Component {
               }
             }
           })
+        } else if (id === 8) {
+          this.setState({
+            estimates: {
+              ...this.state.estimates,
+              estatedEstimate: {
+                ...this.state.estimates.estatedEstimate,
+                active: true
+              }
+            }
+          })
         }
       }
     } 
@@ -397,7 +428,7 @@ export default class App extends Component {
     let zState = queryObj.state;
     let zZip = queryObj.zip;
 
-    this.scrollToResults();
+    // this.scrollToResults();
     this.fetchHomeData(zStreet_address, zCity, zState, zZip);
   };
 
@@ -461,6 +492,7 @@ export default class App extends Component {
                   home={this.state.foundHome}
                   estimates={this.state.estimates}
                   toggleEstimate={this.toggleEstimate}
+                  scroll={this.scrollToResults()}
                 />
               )}
             </Element>
