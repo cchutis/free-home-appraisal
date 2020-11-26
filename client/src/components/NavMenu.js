@@ -8,11 +8,11 @@ export default function NavMenu() {
     return (
         <ul className="main-menu">
             <li><Link to='/'>HOME</Link></li>
-            <li><Link to='/about'>ABOUT</Link></li>
-            <li><Link to='/estimates'>ESTIMATES</Link></li>
-            <li><Link to='/sell-my-home'>SELL MY HOME</Link></li>
+            {/* <li><Link to='/about'>ABOUT</Link></li> */}
+            <li><Link to='/estimates'>ESTIMATE TOOL</Link></li>
+            {/* <li><Link to='/sell-my-home'>SELL MY HOME</Link></li> */}
             <li><Link to='/contact'>CONTACT</Link></li>
-            <li><UserLogin /></li>
+            {/* <li><UserLogin /></li> */}
         </ul>
     )
 }

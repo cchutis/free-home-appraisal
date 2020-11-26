@@ -21,6 +21,12 @@ const useStyles = makeStyles({
   }
 });
 
+function numberWithCommas(x) {
+  if (x !== undefined) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+}
+
 const token = "AIzaSyBiQTjyuueWdiMNAI08m1rxAD5F2v5PBw4";
 
 export default function HouseCard(props) {
@@ -67,11 +73,11 @@ export default function HouseCard(props) {
                         <strong>Year Built:</strong> {year_built || "N/A"}
                       </p>
                       <p>
-                        <strong>Size:</strong> {sqft ? sqft + " /sqft" : "N/A"}
+                        <strong>Size:</strong> {sqft ? numberWithCommas(sqft) + " /sqft" : "N/A"}
                       </p>
                       <p>
                         <strong>Lot Size:</strong>{" "}
-                        {lot_size ? lot_size + " /sqft" : "N/A"}
+                        {lot_size ? numberWithCommas(lot_size) + " /sqft" : "N/A"}
                       </p>
                       <p>
                         <strong>Total Rooms:</strong> {total_rooms || "N/A"}
@@ -96,7 +102,7 @@ export default function HouseCard(props) {
                       </p>
                       <p>
                         <strong>Last Sold Price:</strong>{" "}
-                        {sold_price ? "$" + sold_price : "N/A"}
+                        {sold_price ? "$" + numberWithCommas(sold_price) : "N/A"}
                       </p>
                     </Typography>
                     <h1>Amenities</h1>
