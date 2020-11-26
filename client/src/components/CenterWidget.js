@@ -14,10 +14,10 @@ const CenterWidget = () => {
             <input type="submit" value="Sign Up" />
         </form>
         <div className="social-icons">
-            <span className="social-icon"><TwitterIcon style={{fontSize: 50 }}/></span>
-            <span className="social-icon"><FacebookIcon style={{ fontSize: 50 }}/></span>
-            <span className="social-icon"><LinkedInIcon style={{ fontSize: 50 }}/></span>
-            <span className="social-icon"><EmailIcon style={{ fontSize: 50 }}/></span>
+            <span className="social-icon"><TwitterIcon style={{fontSize: 30 }}/></span>
+            <span className="social-icon"><FacebookIcon style={{ fontSize: 30 }}/></span>
+            <span className="social-icon"><LinkedInIcon style={{ fontSize: 30 }}/></span>
+            <span className="social-icon"><EmailIcon style={{ fontSize: 30 }}/></span>
         </div>
     </div>
     );
