@@ -454,7 +454,7 @@ ul {
 }
 
 #newsletter > [type="email"] {
-    width: 80%;
+    width: 70%;
     height: 40px;
     border-radius: 5px 0 0 5px;
     border: 1px solid #cccccc;
@@ -462,7 +462,7 @@ ul {
 }
 
 #newsletter > [type="submit"] {
-    width: 20%;
+    width: 30%;
     height: 40px;
     border-radius: 0 5px 5px 0;
     background: #f50057;
