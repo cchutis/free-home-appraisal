@@ -35,6 +35,8 @@
     "seedersFolder": "./seeders"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.8.7"
+    "@babel/preset-env": "^7.8.7",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.0"
   }
 }
