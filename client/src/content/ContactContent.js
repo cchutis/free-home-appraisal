@@ -1,34 +1,134 @@
 import React from 'react';
+import '../contactform.scss';
 
-const ContactContent = () => {
+/** Components */
+const Card = props => (
+  <div className="contact-form-card">
+    {/*<div className="waves">
+    </div>*/}
+    {props.children}
+  </div>
+);
+
+const Form = props => (
+  <form className="contact-form-form">{props.children}</form>
+);
+
+const TextInput = props => (
+  <div
+    className="contact-form-text-input">
+    <label
+      className={(props.focus || props.value !== '') ? 'label-focus' : ''}
+      htmlFor={props.name}>{props.label}</label>
+    <input
+      className={(props.focus || props.value !== '') ? 'input-focus' : ''}
+      type="text"
+      name={props.name}
+      value={props.value}
+      onChange={props.onChange}
+      onInput={props.onInput}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur} />
+  </div>
+);
+
+const TextArea = props => (
+  <div
+    className="contact-form-text-area">
+    <label
+      className={(props.focus || props.value !== '') ? 'label-focus' : ''}
+      htmlFor={props.name}>{props.label}</label>
+    <textarea
+      className={(props.focus || props.value !== '') ? 'input-focus' : ''}
+      name={props.name}
+      value={props.value}
+      onChange={props.onChange}
+      onInput={props.onInput}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur} />
+  </div>
+);
+
+const Button = props => (
+  <button
+    className="contact-form-button">{props.children}</button>
+);
+
+/** Root Component */
+class ContactContent extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: {
+        name: 'name',
+        label: 'Name',
+        value: '',
+        focus: false,
+      },
+      email: {
+        name: 'email',
+        label: 'Email',
+        value: '',
+        focus: false,
+      },
+      message: {
+        name: 'message',
+        label: 'Message',
+        value: '',
+        focus: false,
+      },
+    }
+  }
+
+  handleFocus(e) {
+    const name = e.target.name;
+    const state = Object.assign({}, this.state[name]);
+    state.focus = true;
+    this.setState({ [name]: state }, () => { console.log(state) });
+  }
+
+  handleBlur(e) {
+    const name = e.target.name;
+    const state = Object.assign({}, this.state[name]);
+    state.focus = false;
+    this.setState({ [name]: state }, () => { console.log(state) });
+  }
+
+  handleChange(e) {
+    const name = e.target.name;
+    const state = Object.assign({}, this.state[name]);
+    state.value = e.target.value;
+    this.setState({ [name]: state }, () => { console.log(state) });
+  }
+
+  render() {
+    const { name, email, message } = this.state;
     return (
-      <div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu
-          risus nisi. Aenean enim nisl, mollis tristique magna eget, rutrum
-          placerat nisi. Quisque orci lacus, molestie id laoreet a, consectetur
-          a mi. Pellentesque aliquam, turpis eget bibendum ultrices, augue velit
-          facilisis tellus, sed placerat lorem felis laoreet magna. Praesent
-          molestie, lacus non luctus pellentesque, felis ipsum pharetra felis,
-          non ultricies justo mi vel ex. Nulla non gravida orci, ac mattis
-          neque. Duis molestie, est eu aliquam tempus, tellus lorem sodales
-          purus, eleifend hendrerit dui leo et eros. Aliquam erat volutpat.
-          Pellentesque bibendum dictum ligula, vel semper nunc sollicitudin
-          vitae. Donec imperdiet vel ipsum at ultrices. Vestibulum ac interdum
-          mi, quis porttitor ante. Fusce condimentum varius pharetra. Praesent
-          tempor turpis ac ultrices vestibulum. Duis finibus venenatis
-          venenatis. Donec ut ligula neque. Proin ut euismod ligula. Quisque
-          eleifend, diam et molestie finibus, felis mi volutpat lorem, vel
-          lobortis augue metus vitae leo. Donec facilisis vitae nulla a
-          pulvinar. Proin vitae ligula laoreet, gravida enim et, gravida ipsum.
-          Suspendisse vel nulla mauris. Duis blandit facilisis porttitor.
-          Aliquam in tortor vitae neque imperdiet faucibus. Vivamus volutpat
-          pharetra tempor. Aliquam ut dui vitae dui commodo laoreet in quis
-          lacus. Curabitur in lacus dapibus, condimentum felis sed, porttitor
-          ante.
-        </p>
+      <div className="contact-form-container">
+        <Card>
+          <h1>Send us a Message!</h1>
+          <Form>
+            <TextInput
+              {...name}
+              onFocus={this.handleFocus.bind(this)}
+              onBlur={this.handleBlur.bind(this)}
+              onChange={this.handleChange.bind(this)} />
+            <TextInput
+              {...email}
+              onFocus={this.handleFocus.bind(this)}
+              onBlur={this.handleBlur.bind(this)}
+              onChange={this.handleChange.bind(this)} />
+            <TextArea
+              {...message}
+              onFocus={this.handleFocus.bind(this)}
+              onBlur={this.handleBlur.bind(this)}
+              onChange={this.handleChange.bind(this)} />
+            <Button>Send</Button>
+          </Form>
+        </Card>
       </div>
     );
+  }
 }
 
 export default ContactContent;
