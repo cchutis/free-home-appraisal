@@ -146,7 +146,7 @@ export default class App extends Component {
                 ...this.state.estimates.realtorEstimate,
                 listing_id: fullData.realtor.listing_id,
                 link: fullData.realtor.link,
-                value: fullData.realtor.value
+                value: fullData.realtor.price
               },
               melissaEstimate: {
                 ...this.state.estimates.melissaEstimate,
@@ -167,7 +167,7 @@ export default class App extends Component {
               },
               dataTreeEstimate: {
                 ...this.state.estimates.dataTreeEstimate,
-                value: fullData.realtor.value + Math.floor(Math.random() * 1000)
+                value: this.parseZillowEstimate(foundHome).value + Math.floor(Math.random() * 1000)
               },
               estatedEstimate: {
                 ...this.state.estimates.estatedEstimate,
@@ -181,14 +181,14 @@ export default class App extends Component {
   };
 
   nodeFinder = (data) => {
-    if (data !== null) {
+    if (data !== null || data !== undefined) {
       return data;
     } else {
       return 'N/A';
     }
   };
 
-  parseHome = homeData => {
+  parseHome = (homeData) => {
     const homeObj ={
       home_type: this.nodeFinder(homeData.useCode),
       year_built: this.nodeFinder(homeData.yearBuilt),
@@ -206,6 +206,9 @@ export default class App extends Component {
       lat: this.nodeFinder(homeData.address[0].latitude),
       long: this.nodeFinder(homeData.address[0].longitude),
       link_to: this.nodeFinder(homeData.links[0].homedetails[0]),
+      // salestatus: this.nodeFinder(fullData.realtor.data.prop_status),
+      // heating: this.nodeFinder(fullData.realtor.data.heating),
+      // cooling: this.nodeFinder(fullData.realtor.data.cooling),
     }
     return homeObj;
   }
@@ -416,11 +419,11 @@ export default class App extends Component {
     }
     
 
-  scrollToResults = () => {
-      scroller.scrollTo("search-results", {
-        duration: 1000
-      });
-  };
+  // scrollToResults = () => {
+  //     scroller.scrollTo("search-results", {
+  //       duration: 1000
+  //     });
+  // };
 
   getSearchResults = queryObj => {
     let zStreet_address = queryObj.address.split(" ").join("+");
@@ -492,7 +495,6 @@ export default class App extends Component {
                   home={this.state.foundHome}
                   estimates={this.state.estimates}
                   toggleEstimate={this.toggleEstimate}
-                  scroll={this.scrollToResults()}
                 />
               )}
             </Element>

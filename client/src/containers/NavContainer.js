@@ -20,7 +20,7 @@ export default function NavContainer(props) {
                 <Grid container direction="row" justify="center" alignItems="center">
                     <Grid item>
                         <div className="search-bar-container">
-                            <h1>You're one search away from the most accurate appraisal!</h1>
+                            <h1 style={{paddingBottom: 20}}>Enter an address below to get started.</h1>
                             {/* <SearchBar search={props.search} /> */}
                             <NewSearch search={props.search}/>
                         </div>

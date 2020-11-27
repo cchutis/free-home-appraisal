@@ -97,11 +97,14 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
             }
         })
         .then(function (data) {
-            if(data.listing.price !== undefined) {
-            realtor_data = data.listing.price
+            realtor_data = data.listing
+            if(realtor_data.price !== undefined) {
+                return realtor_data
             } else {
-                realtor_data = 0
+                realtor_data.price = 0
+                return realtor_data
             }
+
         })
         .catch(function (error) {
             console.warn(error)
@@ -219,7 +222,8 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     const data = {
         zillow: zillow_data,
         realtor: {
-            value: realtor_data,
+            data: realtor_data,
+            // value: realtor_price
             // link: realtor_data.listing.web_url,
             // listing_id: realtor_id
         },
