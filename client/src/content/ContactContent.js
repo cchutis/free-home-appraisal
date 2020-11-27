@@ -1,5 +1,6 @@
 import React from 'react';
 import '../contactform.scss';
+import Logo from '../components/Logo';
 
 /** Components */
 const Card = props => (
@@ -105,6 +106,9 @@ class ContactContent extends React.Component {
     const { name, email, message } = this.state;
     return (
       <div className="contact-form-container">
+        <div className="logo-container">
+          <Logo />
+        </div>
         <Card>
           <h1>Send us a Message!</h1>
           <Form>

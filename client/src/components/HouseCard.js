@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 // import StarIcon from '@material-ui/icons/Star';
 import Map from './Map';
+import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 
 const useStyles = makeStyles({
   card: {
@@ -31,7 +32,7 @@ const token = "AIzaSyBiQTjyuueWdiMNAI08m1rxAD5F2v5PBw4";
 
 export default function HouseCard(props) {
     const classes = useStyles();
-    const { home_type, year_built, sqft, lot_size, total_rooms, bedrooms, bathrooms, street_address, city, state, zip_code, sold_price, sold_date, link_to, lat, long } = props.home
+    const { home_type, year_built, sqft, lot_size, total_rooms, bedrooms, bathrooms, street_address, city, state, zip_code, sold_price, sold_date, salestatus, heating, cooling, pool, fireplace, parking, garage, washerdryer, link_to, lat, long } = props.home
     //  console.log(`https://maps.googleapis.com/maps/api/streetview?size=1200x1200&fov=60&location=${street_address.split(' ').join('+')},${city.split(' ').join('+')},${state.split(' ').join('+')}&key=${token}`)
     return (
       <div className="house-card">
@@ -104,6 +105,10 @@ export default function HouseCard(props) {
                         <strong>Last Sold Price:</strong>{" "}
                         {sold_price ? "$" + numberWithCommas(sold_price) : "N/A"}
                       </p>
+                      <p>
+                        <strong>Status:</strong>{" "}
+                        {salestatus || "N/A"}
+                      </p>
                     </Typography>
                     <h1>Amenities</h1>
                     <Typography
@@ -112,25 +117,25 @@ export default function HouseCard(props) {
                       component="span"
                     >
                       <p>
-                        <strong>Garage:</strong> N/A
+                        <strong>Garage:</strong> {garage || "N/A"}
                       </p>
                       <p>
-                        <strong>Parking:</strong> N/A
+                        <strong>Parking:</strong> {parking || "N/A"}
                       </p>
                       <p>
-                        <strong>Heating:</strong> N/A
+                        <strong>Heating:</strong> {heating || "N/A"}
                       </p>
                       <p>
-                        <strong>Air Conditioning:</strong> N/A
+                        <strong>Air Conditioning:</strong> {cooling || "N/A"}
                       </p>
                       <p>
-                        <strong>Pool:</strong> N/A
+                        <strong>Pool:</strong> {pool || "N/A"}
                       </p>
                       <p>
-                        <strong>Fireplace:</strong> N/A
+                        <strong>Fireplace:</strong> {fireplace || "N/A"}
                       </p>
                       <p>
-                        <strong>Washer/Dryer:</strong> N/A
+                        <strong>Washer/Dryer:</strong> {washerdryer || "N/A"}
                       </p>
                     </Typography>
                   </div>
