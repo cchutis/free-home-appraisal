@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 // import StarIcon from '@material-ui/icons/Star';
 import Map from './Map';
-import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 
 const useStyles = makeStyles({
   card: {
@@ -19,6 +18,9 @@ const useStyles = makeStyles({
   media: {
     width: 1000,
     height: 540
+  },
+  strong: {
+    fontWeight: 'bold'
   }
 });
 
@@ -51,9 +53,9 @@ export default function HouseCard(props) {
               />
             </div>
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
+              <h1 style={{fontSize: 35, paddingBottom: 20}}>
                 {street_address}, {city}, {state} {zip_code}
-              </Typography>
+              </h1>
               <div className="main">
                 <Map
                   lat={lat}
@@ -68,26 +70,26 @@ export default function HouseCard(props) {
                       component="span"
                     >
                       <p>
-                        <strong>Home Type:</strong> {home_type || "N/A"}
+                        <strong className={classes.strong}>Home Type:</strong> {home_type || "N/A"}
                       </p>
                       <p>
-                        <strong>Year Built:</strong> {year_built || "N/A"}
+                        <strong className={classes.strong}>Year Built:</strong> {year_built || "N/A"}
                       </p>
                       <p>
-                        <strong>Size:</strong> {sqft ? numberWithCommas(sqft) + " /sqft" : "N/A"}
+                        <strong className={classes.strong}>Size:</strong> {sqft ? numberWithCommas(sqft) + " /sqft" : "N/A"}
                       </p>
                       <p>
-                        <strong>Lot Size:</strong>{" "}
+                        <strong className={classes.strong}>Lot Size:</strong>{" "}
                         {lot_size ? numberWithCommas(lot_size) + " /sqft" : "N/A"}
                       </p>
                       <p>
-                        <strong>Total Rooms:</strong> {total_rooms || "N/A"}
+                        <strong className={classes.strong}>Total Rooms:</strong> {total_rooms || "N/A"}
                       </p>
                       <p>
-                        <strong>Bedrooms:</strong> {bedrooms || "N/A"}
+                        <strong className={classes.strong}>Bedrooms:</strong> {bedrooms || "N/A"}
                       </p>
                       <p>
-                        <strong>Bathrooms:</strong> {bathrooms || "N/A"}
+                        <strong className={classes.strong}>Bathrooms:</strong> {bathrooms || "N/A"}
                       </p>
                     </Typography>
                   </div>
@@ -99,14 +101,14 @@ export default function HouseCard(props) {
                       component="span"
                     >
                       <p>
-                        <strong>Last Sold Date:</strong> {sold_date || "N/A"}
+                        <strong className={classes.strong}>Last Sold Date:</strong> {sold_date || "N/A"}
                       </p>
                       <p>
-                        <strong>Last Sold Price:</strong>{" "}
+                        <strong className={classes.strong}>Last Sold Price:</strong>{" "}
                         {sold_price ? "$" + numberWithCommas(sold_price) : "N/A"}
                       </p>
                       <p>
-                        <strong>Status:</strong>{" "}
+                        <strong className={classes.strong}>Status:</strong>{" "}
                         {salestatus || "N/A"}
                       </p>
                     </Typography>
@@ -117,25 +119,25 @@ export default function HouseCard(props) {
                       component="span"
                     >
                       <p>
-                        <strong>Garage:</strong> {garage || "N/A"}
+                        <strong className={classes.strong}>Garage:</strong> {garage || "N/A"}
                       </p>
                       <p>
-                        <strong>Parking:</strong> {parking || "N/A"}
+                        <strong className={classes.strong}>Parking:</strong> {parking || "N/A"}
                       </p>
                       <p>
-                        <strong>Heating:</strong> {heating || "N/A"}
+                        <strong className={classes.strong}>Heating:</strong> {heating || "N/A"}
                       </p>
                       <p>
-                        <strong>Air Conditioning:</strong> {cooling || "N/A"}
+                        <strong className={classes.strong}>Air Conditioning:</strong> {cooling || "N/A"}
                       </p>
                       <p>
-                        <strong>Pool:</strong> {pool || "N/A"}
+                        <strong className={classes.strong}>Pool:</strong> {pool || "N/A"}
                       </p>
                       <p>
-                        <strong>Fireplace:</strong> {fireplace || "N/A"}
+                        <strong className={classes.strong}>Fireplace:</strong> {fireplace || "N/A"}
                       </p>
                       <p>
-                        <strong>Washer/Dryer:</strong> {washerdryer || "N/A"}
+                        <strong className={classes.strong}>Washer/Dryer:</strong> {washerdryer || "N/A"}
                       </p>
                     </Typography>
                   </div>
@@ -148,7 +150,7 @@ export default function HouseCard(props) {
               View on Zillow
             </Button>
             <Button size="small" color="primary">
-              Remove this Estimate
+              View Additional Photos
             </Button>
             <Button size="small" color="primary">
               <StarBorderIcon />
