@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import {SaveIcon} from '@material-ui/icons/Save';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,10 +17,8 @@ export default function PDFButton(props) {
                 variant="contained"
                 color="primary"
                 size="large"
-                className={classes.button}
-                startIcon={<SaveIcon />}
-            >
-                Download PDF
+                className={classes.button}>
+                <span role="img" aria-label="save">💾</span> &nbsp; Download PDF
             </Button>
         </div>
     )

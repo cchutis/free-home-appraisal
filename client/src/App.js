@@ -20,6 +20,8 @@ import AboutContent from './content/AboutContent';
 import ContactContent from './content/ContactContent';
 import SellMyHomeContent from './content/SellMyHomeContent';
 import LandingPageContent from './content/LandingPageContent';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const estimatesAPI = '/estimates';
 
@@ -425,6 +427,23 @@ export default class App extends Component {
   //     });
   // };
 
+  savePage = () => {
+    const divToDisplay = document.querySelector('#print-area')
+    html2canvas(divToDisplay, {
+      allowTaint: false,
+      useCORS: true,
+    })
+    .then(function(canvas) {
+      const divImage = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "pt", "letter");
+      const imgProps = pdf.getImageProperties(divImage);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      pdf.addImage(divImage, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save("download.pdf");
+    })
+  }
+
   getSearchResults = queryObj => {
     let zStreet_address = queryObj.address.split(" ").join("+");
     let zCity = queryObj.city.split(" ").join("+");
@@ -495,6 +514,7 @@ export default class App extends Component {
                   home={this.state.foundHome}
                   estimates={this.state.estimates}
                   toggleEstimate={this.toggleEstimate}
+                  savePage={this.savePage}
                 />
               )}
             </Element>
