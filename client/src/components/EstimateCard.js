@@ -29,7 +29,7 @@ function numberWithCommas(x) {
 }
 
 export default function EstimateCard(props) {
-  const {id, site_name, value, img, link, active} = props.data;
+  const {id, site_name, value, img, link} = props.data;
   const classes = useStyles();
 
     return (
