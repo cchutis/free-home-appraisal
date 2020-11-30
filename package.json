@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.13",
     "mongoose-data-seed": "^2.1.6",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "node-zillow": "^2.0.0",
     "nodemon": "^2.0.3",
     "pdfkit": "^0.11.0",
