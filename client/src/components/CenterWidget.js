@@ -3,6 +3,7 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import EmailIcon from "@material-ui/icons/Email";
+import MailchimpSubscribe from "react-mailchimp-subscribe"
 
 const CenterWidget = () => {
     return (

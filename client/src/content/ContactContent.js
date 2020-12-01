@@ -111,6 +111,7 @@ class ContactContent extends React.Component {
         </div>
         <Card>
           <h1>Send us a Message!</h1>
+          <p style={{padding: 20}}>Please fill out the form below if you have any questions, issues, or suggestions.</p>
           <Form>
             <TextInput
               {...name}
