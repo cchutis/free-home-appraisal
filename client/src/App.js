@@ -97,6 +97,7 @@ export default class App extends Component {
     isLoggedIn: false,
     user: {},
     isLoading: false,
+    extraHomeData: {}
   };
 
  
@@ -131,8 +132,8 @@ export default class App extends Component {
     const response = await fetch(api_url);
     const fullData = await response.json().catch(err => console.log(err));
     const foundHome = fullData.zillow;
-
-    console.log("foundHome:", foundHome);
+    console.log(fullData)
+    // console.log("foundHome:", foundHome);
     if(foundHome) {
       this.setState({
         isLoading: false,
@@ -148,7 +149,7 @@ export default class App extends Component {
                 ...this.state.estimates.realtorEstimate,
                 listing_id: fullData.realtor.listing_id,
                 link: fullData.realtor.link,
-                value: fullData.realtor.price
+                value: fullData.realtor.value
               },
               melissaEstimate: {
                 ...this.state.estimates.melissaEstimate,
@@ -175,6 +176,14 @@ export default class App extends Component {
                 ...this.state.estimates.estatedEstimate,
                 value: this.parseZillowEstimate(foundHome).value + Math.floor(Math.random() * 1432)
               }
+            },
+            extraHomeData: {
+              ...this.state.extraHomeData,
+              propStatus: fullData.realtor.extraData.propStatus,
+              heating: fullData.realtor.extraData.heating,
+              cooling: fullData.realtor.extraData.cooling,
+              description: fullData.realtor.extraData.description,
+              additionalPhotos: fullData.realtor.extraData.additionalPhotos
             }
           });
     } else {
@@ -191,6 +200,7 @@ export default class App extends Component {
   };
 
   parseHome = (homeData) => {
+    // console.log(fullData)
     const homeObj ={
       home_type: this.nodeFinder(homeData.useCode),
       year_built: this.nodeFinder(homeData.yearBuilt),
@@ -208,9 +218,9 @@ export default class App extends Component {
       lat: this.nodeFinder(homeData.address[0].latitude),
       long: this.nodeFinder(homeData.address[0].longitude),
       link_to: this.nodeFinder(homeData.links[0].homedetails[0]),
-      // salestatus: this.nodeFinder(fullData.realtor.data.prop_status),
-      // heating: this.nodeFinder(fullData.realtor.data.heating),
-      // cooling: this.nodeFinder(fullData.realtor.data.cooling),
+      // salestatus: this.nodeFinder(fullData.realtor.extraData.propStatus),
+      // heating: this.nodeFinder(fullData.realtor.extraData.heating),
+      // cooling: this.nodeFinder(fullData.realtor.extraData.cooling),
     }
     return homeObj;
   }
@@ -512,6 +522,7 @@ export default class App extends Component {
               ) : (
                 <APIContainer
                   home={this.state.foundHome}
+                  extraHomeData={this.state.extraHomeData}
                   estimates={this.state.estimates}
                   toggleEstimate={this.toggleEstimate}
                   savePage={this.savePage}

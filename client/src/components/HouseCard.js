@@ -34,7 +34,8 @@ const token = "AIzaSyBiQTjyuueWdiMNAI08m1rxAD5F2v5PBw4";
 
 export default function HouseCard(props) {
     const classes = useStyles();
-    const { home_type, year_built, sqft, lot_size, total_rooms, bedrooms, bathrooms, street_address, city, state, zip_code, sold_price, sold_date, salestatus, heating, cooling, pool, fireplace, parking, garage, washerdryer, link_to, lat, long } = props.home
+    const { home_type, year_built, sqft, lot_size, total_rooms, bedrooms, bathrooms, street_address, city, state, zip_code, sold_price, sold_date, pool, fireplace, parking, garage, washerdryer, link_to, lat, long } = props.home
+    const { propStatus, heating, cooling, description } = props.extraHomeData
     //  console.log(`https://maps.googleapis.com/maps/api/streetview?size=1200x1200&fov=60&location=${street_address.split(' ').join('+')},${city.split(' ').join('+')},${state.split(' ').join('+')}&key=${token}`)
     return (
       <div className="house-card">
@@ -92,6 +93,7 @@ export default function HouseCard(props) {
                         <strong className={classes.strong}>Bathrooms:</strong> {bathrooms || "N/A"}
                       </p>
                     </Typography>
+                    
                   </div>
                   <div className="right">
                     <h1>Status</h1>
@@ -109,7 +111,7 @@ export default function HouseCard(props) {
                       </p>
                       <p>
                         <strong className={classes.strong}>Status:</strong>{" "}
-                        {salestatus || "N/A"}
+                        {propStatus || "N/A"}
                       </p>
                     </Typography>
                     <h1>Amenities</h1>
@@ -143,6 +145,18 @@ export default function HouseCard(props) {
                   </div>
                 </div>
               </div>
+              {description ?
+              <div className="description-box">
+                <h2>Description</h2>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="span"
+                  >
+                    {description}
+                  </Typography>
+              </div>
+              : null}
             </CardContent>
           </CardActionArea>
           <CardActions className="house-actions">

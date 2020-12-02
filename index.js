@@ -73,6 +73,7 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
         }
     })
     .then(function (response) {
+        // console.log(response)
         if(response.ok) {
             return response.json()
         } else {
@@ -97,14 +98,18 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
             }
         })
         .then(function (data) {
-            realtor_data = data.listing
-            if(realtor_data.price !== undefined) {
-                return realtor_data
+            if(data.listing.price !== undefined) {
+                realtor_data = data.listing.price
             } else {
-                realtor_data.price = 0
-                return realtor_data
+                realtor_data = 0
             }
-
+            additionalData = {
+                heating: data.listing.heating || "N/A",
+                cooling: data.listing.cooling || "N/A",
+                additionalPhotos: [data.listing.photos],
+                description: data.listing.description,
+                propStatus: data.listing.prop_status.split("_").join(" ") || "N/A"
+            }
         })
         .catch(function (error) {
             console.warn(error)
@@ -131,7 +136,7 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     })
     .then(function (data) {
         if(data[0].lastSalePrice !== undefined) {
-        realtyMole_data = data[0].lastSalePrice
+            realtyMole_data = data[0].lastSalePrice
         } else {
             realtyMole_data = 0
         }
@@ -180,7 +185,7 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
         }
     })
     .then(function (data) {
-        console.log(data.content.id)
+        // console.log(data.content.id)
         if(data.content.id !== undefined){
             const mash_redfin_id = data.content.id;
             const mash_redfin_data_url = `https://mashvisor-api.p.rapidapi.com/property/estimates/${mash_redfin_id}?state=${state}`;
@@ -222,10 +227,12 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     const data = {
         zillow: zillow_data,
         realtor: {
-            data: realtor_data,
+            // data: realtor_data,
+            value: realtor_data,
             // value: realtor_price
             // link: realtor_data.listing.web_url,
             // listing_id: realtor_id
+            extraData: additionalData
         },
         melissa: {
             value: Number(melissa_data) 

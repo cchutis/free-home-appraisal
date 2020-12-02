@@ -15,7 +15,7 @@ export default function APIContainer(props) {
     return (
         <Container maxWidth="lg">
             <Grid container direction="row" justify="center" alignItems="center" id="print-area">
-                <HouseCard home={props.home} />
+                <HouseCard home={props.home} extraHomeData={props.extraHomeData} />
                 <EstimateContainer estimates={props.estimates} toggleEstimate={props.toggleEstimate} />
                 <FHAEstimate estimates={props.estimates} />
                 <PDFButton savePage={props.savePage}/>
