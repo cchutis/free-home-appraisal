@@ -44,7 +44,7 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     var realtyMole_data;
     
     const parameters = {
-        address: req.params.street_address,
+        address:req.params.street_address,
         citystatezip: `${req.params.city}, ${req.params.state}`,
         rentzestimate: false
     }
@@ -256,6 +256,26 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
 app.get('*', function(req, res) {
     res.sendFile('index.html', {root: path.join(__dirname, '/client/build/')});
   });
+
+function directionCorrection(input) {
+    let address = input.toLowerCase();
+    if(address.includes("north")) {
+        console.log("Contains North")
+        let almost = address.replace("north", "").split(" ")
+        let newAddress = almost.splice(1, 0, 'north')
+        let reformattedAddress = newAddress.join(" ")
+        console.log(reformattedAddress)
+    } else if (address.includes("south")) {
+        console.log("Contains South")
+    } else if (address.includes("east")) {
+        console.log("Contains East")
+    } else if (address.includes("west")) {
+        console.log("Contains West")
+    } else {
+        console.log("Does not contain a direction")
+    }
+    return reformattedAddress
+}
 
 function convertRegion(input) {
     var states = [

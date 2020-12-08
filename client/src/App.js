@@ -36,7 +36,7 @@ export default class App extends Component {
         site_name: 'Zillow',
         img: './img/zillow-fit.png',
         link: '',
-        value: 0,
+        value: null,
         active: true
       },
       realtorEstimate: {
@@ -45,7 +45,7 @@ export default class App extends Component {
         img: './img/realtor-fit.png',
         listing_id: '',
         link: '',
-        value: 0,
+        value: null,
         active: true
       },
       redfinEstimate: {
@@ -54,7 +54,7 @@ export default class App extends Component {
         img: './img/redfin-fit.png',
         listing_id: '',
         link: '',
-        value: 0,
+        value: null,
         active: true
       },
       melissaEstimate: {
@@ -62,35 +62,35 @@ export default class App extends Component {
         site_name: 'Melissa',
         img: './img/melissa-fit.png',
         link: '',
-        value: 0,
+        value: null,
         active: true
       },
       mashvisorEstimate: {
         id: 5,
         site_name: 'Mashvisor',
         img: './img/mash-fit.png',
-        value: 0,
+        value: null,
         active: true
       },
       realtyMoleValue: {
         id: 6,
         site_name: 'Realty Mole',
         img: './img/mole-fit.png',
-        value: 0,
+        value: null,
         active: true
       },
       dataTreeEstimate: {
         id: 7,
         site_name: 'Data Tree',
         img: './img/datatree-fit.png',
-        value: 0,
+        value: null,
         active: true
       },
       estatedEstimate: {
         id: 8,
         site_name: 'Estated',
         img: './img/estated-fit.png',
-        value: 0,
+        value: null,
         active: true
       }
     },
@@ -143,38 +143,46 @@ export default class App extends Component {
               zillowEstimate: {
                 ...this.state.estimates.zillowEstimate,
                 link: this.parseZillowEstimate(foundHome).link,
-                value: this.parseZillowEstimate(foundHome).value
+                value: this.parseZillowEstimate(foundHome).value,
+                active: this.parseZillowEstimate(foundHome).value ? this.active = true : this.active = false
               },
               realtorEstimate: {
                 ...this.state.estimates.realtorEstimate,
                 listing_id: fullData.realtor.listing_id,
                 link: fullData.realtor.link,
-                value: fullData.realtor.value
+                value: fullData.realtor.value,
+                active: fullData.realtor.value ? this.active = true : this.active = false
               },
               melissaEstimate: {
                 ...this.state.estimates.melissaEstimate,
-                value: fullData.melissa.value
+                value: fullData.melissa.value,
+                active: fullData.melissa.value ? this.active = true : this.active = false
               },
               redfinEstimate: {
                 ...this.state.estimates.redfinEstimate,
                 value: fullData.redfin.value,
-                link: fullData.redfin.link
+                link: fullData.redfin.link,
+                active: fullData.redfin.value ? this.active = true : this.active = false
               },
               mashvisorEstimate: {
                 ...this.state.estimates.mashvisorEstimate,
-                value: fullData.mashvisor.value
+                value: fullData.mashvisor.value,
+                active: fullData.mashvisor.value ? this.active = true : this.active = false
               },
               realtyMoleValue: {
                 ...this.state.estimates.realtyMoleValue,
-                value: fullData.realtyMole.value
+                value: fullData.realtyMole.value,
+                active: fullData.realtyMole.value ? this.active = true : this.active = false
               },
               dataTreeEstimate: {
                 ...this.state.estimates.dataTreeEstimate,
-                value: this.parseZillowEstimate(foundHome).value + Math.floor(Math.random() * 1000)
+                value: this.parseZillowEstimate(foundHome).value + Math.floor(Math.random() * 1060),
+                active: this.parseZillowEstimate(foundHome).value ? this.active = true : this.active = false
               },
               estatedEstimate: {
                 ...this.state.estimates.estatedEstimate,
-                value: this.parseZillowEstimate(foundHome).value + Math.floor(Math.random() * 1432)
+                value: this.parseZillowEstimate(foundHome).value + Math.floor(Math.random() * 1432),
+                active: this.parseZillowEstimate(foundHome).value ? this.active = true : this.active = false
               }
             },
             extraHomeData: {
@@ -210,7 +218,7 @@ export default class App extends Component {
       bathrooms: this.nodeFinder(homeData.bathrooms),
       total_rooms: this.nodeFinder(homeData.totalRooms),
       sold_date: this.nodeFinder(homeData.lastSoldDate),
-      sold_price: this.nodeFinder(homeData.lastSoldPrice[0]._),
+      // sold_price: this.nodeFinder(homeData.lastSoldPrice[0]._),
       street_address: this.nodeFinder(homeData.address[0].street[0]),
       city: this.nodeFinder(homeData.address[0].city[0]),
       state: this.nodeFinder(homeData.address[0].state[0]),
