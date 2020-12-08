@@ -118,7 +118,7 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
 
     //REALTY MOLE CALLS
 
-    const realtyMole_url = `https://realty-mole-property-api.p.rapidapi.com/properties?state=${state}&address=${street_address}%2C%20${city}%2C%20${state}%20${zip}`;
+    const realtyMole_url = `https://realty-mole-property-api.p.rapidapi.com/salePrice?state=${state}&address=${directionCorrection(street_address)}%2C%20${city}%2C%20${state}%20${zip}`;
     
     await fetch(realtyMole_url, {
         method: 'GET',
@@ -129,14 +129,16 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     })
     .then(function (response) {
         if(response.ok) {
+            console.log("RealtyMole:", response )
             return response.json()
         } else {
             return Promise.reject(response)
         }
     })
     .then(function (data) {
-        if(data[0].lastSalePrice !== undefined) {
-            realtyMole_data = data[0].lastSalePrice
+        console.log("DATA: ", data)
+        if(data.price !== undefined) {
+            realtyMole_data = Math.floor(data.price)
         } else {
             realtyMole_data = 0
         }
@@ -258,23 +260,47 @@ app.get('*', function(req, res) {
   });
 
 function directionCorrection(input) {
-    let address = input.toLowerCase();
-    if(address.includes("north")) {
+    let address = input;
+    if(address.includes("North")) {
         console.log("Contains North")
-        let almost = address.replace("north", "").split(" ")
-        let newAddress = almost.splice(1, 0, 'north')
-        let reformattedAddress = newAddress.join(" ")
-        console.log(reformattedAddress)
-    } else if (address.includes("south")) {
+        let arr = address.split("+")
+        arr.pop()
+        console.log(arr)
+        arr.splice(1, 0, 'N')
+        address = arr.join("+")
+        console.log(address)
+        return address
+    } else if (address.includes("South")) {
         console.log("Contains South")
-    } else if (address.includes("east")) {
+        let arr = address.split("+")
+        arr.pop()
+        console.log(arr)
+        arr.splice(1, 0, 'S')
+        address = arr.join("+")
+        console.log(address)
+        return address
+    } else if (address.includes("East")) {
         console.log("Contains East")
-    } else if (address.includes("west")) {
+        let arr = address.split("+")
+        arr.pop()
+        console.log(arr)
+        arr.splice(1, 0, 'E')
+        address = arr.join("+")
+        console.log(address)
+        return address
+    } else if (address.includes("West")) {
         console.log("Contains West")
+        let arr = address.split("+")
+        arr.pop()
+        console.log(arr)
+        arr.splice(1, 0, 'W')
+        address = arr.join("+")
+        console.log(address)
+        return address
     } else {
         console.log("Does not contain a direction")
     }
-    return reformattedAddress
+    return address
 }
 
 function convertRegion(input) {
