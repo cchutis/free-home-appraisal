@@ -48,6 +48,13 @@ p {
     height: 100%;
 }
 
+.split {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .header {
     height: 100px;
     width: 100vw;
@@ -363,6 +370,9 @@ p strong {
 
 .section-3 {
     background-color: white;
+    height: 700px;
+    margin-left: -300px;
+    margin-right: -300px;
 }
 
 .section-4 {

@@ -1,4 +1,5 @@
 import React from 'react';
+import mockup from '../assets/img/app-mockupphone.png';
 
 const LandingPageContent = () => {
     return (
@@ -30,11 +31,17 @@ const LandingPageContent = () => {
         </div>
         <div className="landing-info section-3">
           <div className="home-text-right">
-          <h2 style={{fontSize: 40}}>The future of Accupraisal.</h2>
+            <div className="split">
+              <div>
+            <h2 style={{fontSize: 40}}>The future of Accupraisal.</h2>
             <p style={{ fontSize: 16 }}>This tool is in early phases of development. Please feel free to test out current features, and
             if you encounter any bugs or issues, contact us via the 'Contact' page with a description of what was encountered. Future plans
             for Accupraisal include more estimation API's, user accounts with saved address/properties, and the ability to correct home data/upload new data
             and photos.</p>
+              </div>
+            <img src={mockup} style={{width: 400}} alt="" />
+
+            </div>
           </div>
         </div>
       </div>
