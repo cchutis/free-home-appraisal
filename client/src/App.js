@@ -22,6 +22,7 @@ import SellMyHomeContent from './content/SellMyHomeContent';
 import LandingPageContent from './content/LandingPageContent';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import LoadingIcon from './assets/img/loading-icon.png';
 
 const estimatesAPI = '/estimates';
 
@@ -483,6 +484,11 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
+        {this.state.isLoading ?
+          <div className="loading-screen">
+            <img src={LoadingIcon} alt="" />
+            <h1>The Accupraisal algorithm is finding your home's value!</h1>
+          </div> : null}
         <CssBaseline />
         <Switch>
           <Route exact path="/profile">
