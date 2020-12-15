@@ -447,6 +447,7 @@ export default class App extends Component {
   // };
 
   savePage = () => {
+    const address = this.state.foundHome.street_address
     const divToDisplay = document.querySelector('#print-area')
     html2canvas(divToDisplay, {
       allowTaint: false,
@@ -454,12 +455,12 @@ export default class App extends Component {
     })
     .then(function(canvas) {
       const divImage = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "pt", "letter");
+      const pdf = new jsPDF("p", "pt", "legal");
       const imgProps = pdf.getImageProperties(divImage);
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(divImage, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save("download.pdf");
+      pdf.addImage(divImage, 'PNG', 0, 0, 600, 1080);
+      pdf.save(`${address}.pdf`);
     })
   }
 
