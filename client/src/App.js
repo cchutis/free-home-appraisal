@@ -501,9 +501,7 @@ export default class App extends Component {
             </div>
           </Route>
           <Route exact path="/contact">
-            {/* <div className="header"> */}
               <NavMenu />
-            {/* </div> */}
             <div class="flex-wrapper">
             <ContactContent />
             <Footer />
