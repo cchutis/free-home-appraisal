@@ -196,9 +196,6 @@ export default class App extends Component {
             }
           });
     } else {
-      this.setState({
-        isLoading: false
-      })
       alert('Address not valid');
     }
   };
