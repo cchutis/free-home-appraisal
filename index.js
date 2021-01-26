@@ -34,8 +34,6 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname+'/client/build/index.html')));
 
 
-
-
 app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
     var melissa_data;
     var zillow_data;
@@ -171,7 +169,7 @@ app.get('/estimates/:street_address/:city/:state/:zip', async (req, res) => {
 
     //MASH_REDFIN CALLS 
 
-    const mash_redfin_id_url = `https://mashvisor-api.p.rapidapi.com/property?zip_code=${zip}&address=${street_address}&city=${city}&state=${state}`;
+    const mash_redfin_id_url = `https://mashvisor-api.p.rapidapi.com/property?zip_code=${zip}&address=${directionCorrection(street_address)}&city=${city}&state=${state}`;
     await fetch(mash_redfin_id_url, {
         method: 'GET',
         headers: {
