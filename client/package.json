@@ -16,7 +16,7 @@
     "@testing-library/user-event": "^7.1.2",
     "animated-number-react": "^0.1.1",
     "autosuggest-highlight": "^3.1.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cross-env": "^7.0.2",
     "google-map-react": "^1.1.6",
     "html2canvas": "^1.0.0-rc.1",
