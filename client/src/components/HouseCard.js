@@ -11,6 +11,8 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 // import StarIcon from '@material-ui/icons/Star';
 import Map from './Map';
 
+// require('dotenv').config();
+
 const useStyles = makeStyles({
   card: {
     maxWidth: 1000
@@ -30,7 +32,7 @@ function numberWithCommas(x) {
   }
 }
 
-const token = "AIzaSyBiQTjyuueWdiMNAI08m1rxAD5F2v5PBw4";
+const token = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
 
 export default function HouseCard(props) {
     const classes = useStyles();
