@@ -21,7 +21,7 @@
     "google-map-react": "^1.1.6",
     "html2canvas": "^1.0.0-rc.1",
     "jspdf": "^2.1.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "places.js": "^1.18.1",
     "puppeteer": "^2.1.1",
     "react": "^16.13.1",
