@@ -34,7 +34,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.1",
     "react-scroll": "^1.7.16",
-    "recharts": "^2.0.0-beta.1",
+    "recharts": "^2.1.14",
     "typeface-roboto": "0.0.75",
     "xml-js": "^1.6.11",
     "xml2js": "^0.4.23"
