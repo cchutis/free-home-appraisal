@@ -1,13 +1,13 @@
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import PeopleIcon from '@material-ui/icons/People';
-import StarIcon from "@material-ui/icons/Star";
-import HistoryIcon from "@material-ui/icons/History";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import HelpIcon from "@material-ui/icons/Help";
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PeopleIcon from '@mui/icons-material/People';
+import StarIcon from "@mui/icons-material/Star";
+import HistoryIcon from "@mui/icons-material/History";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import HelpIcon from "@mui/icons-material/Help";
 
 
 export const mainListItems = (

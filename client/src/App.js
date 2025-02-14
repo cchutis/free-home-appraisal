@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
-// import { BrowserRouter, Switch, Route } from 'react-router-dom'; 
 import './App.css';
 import 'typeface-roboto';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 import NavContainer from './containers/NavContainer';
 import Footer from './containers/FooterContainer';
-// eslint-disable-next-line
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import APIContainer from './containers/APIContainer';
 import EmptySearchContainer from './containers/EmptySearchContainer';
 import LandingPageContainer from './containers/LandingPageContainer';
 import NavMenu from './components/NavMenu';
 import ProfilePage from './containers/ProfilePage';
 import SignUp from './components/SignUp';
-// eslint-disable-next-line
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
+import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 import AboutContent from './content/AboutContent';
 import ContactContent from './content/ContactContent';
 import SellMyHomeContent from './content/SellMyHomeContent';
@@ -23,9 +19,7 @@ import LandingPageContent from './content/LandingPageContent';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import LoadingIcon from './assets/img/loading-icon.png';
-
-const estimatesAPI = '/estimates';
-
+import PropertyService from './services/api';
 
 export default class App extends Component {
   state = {
@@ -98,107 +92,75 @@ export default class App extends Component {
     isLoggedIn: false,
     user: {},
     isLoading: false,
-    extraHomeData: {}
+    extraHomeData: {},
+    loading: false,
+    error: null,
+    searchPerformed: false
   };
 
- 
-
-  fetchEstimates = id => {
-    fetch(estimatesAPI)
-      .then(r => r.json())
-      .then(estData => {
-        this.filterEstimates(estData, id);
+  handleSearch = async (searchData) => {
+    this.setState({ loading: true });
+    try {
+      const [street, city, state, zip] = this.parseAddress(searchData.address);
+      const estimates = await PropertyService.getEstimates(street, city, state, zip);
+      
+      this.setState(prevState => ({
+        estimates: {
+          ...prevState.estimates,
+          zillowEstimate: {
+            ...prevState.estimates.zillowEstimate,
+            value: estimates.zillow?.zestimate || null,
+            link: estimates.zillow?.homeDetails || ''
+          },
+          realtorEstimate: {
+            ...prevState.estimates.realtorEstimate,
+            value: estimates.realtyMole?.price || null,
+            link: estimates.realtyMole?.listingUrl || ''
+          },
+          melissaEstimate: {
+            ...prevState.estimates.melissaEstimate,
+            value: estimates.melissa?.Records?.[0]?.CurrentDeed?.SalePrice || null
+          },
+          realtyMoleValue: {
+            ...prevState.estimates.realtyMoleValue,
+            value: estimates.realtyMole?.price || null
+          }
+        },
+        foundHome: {
+          street_address: street,
+          city: city,
+          state: state,
+          zip_code: zip,
+          bedrooms: estimates.melissa?.Records?.[0]?.BuildingInfo?.TotalBedrooms || '3',
+          bathrooms: estimates.melissa?.Records?.[0]?.BuildingInfo?.TotalBathrooms || '2',
+          sqft: estimates.melissa?.Records?.[0]?.BuildingInfo?.TotalSquareFeet || '2,000',
+          year_built: estimates.melissa?.Records?.[0]?.BuildingInfo?.YearBuilt || '2000',
+          lat: searchData.lat,
+          long: searchData.long
+        },
+        loading: false,
+        searchPerformed: true,
+        error: null
+      }));
+    } catch (error) {
+      console.error('Error fetching estimates:', error);
+      this.setState({ 
+        loading: false,
+        error: 'Failed to fetch property estimates. Please try again.'
       });
-  };
-
-  filterEstimates = (estData, id) => {
-    const filter = estData.filter(est => {
-      if (est.home_id === id && est.value !== 0) {
-        return est;
-      } else {
-        return null;
-      }
-    });
-    this.setState({
-      estimates: filter
-    });
-  };
-
-  //  Hitting XML Zillow
-  fetchHomeData = async (street_address, city, state, zip) => {
-    this.setState({
-      isLoading: true
-    })
-    const api_url = estimatesAPI + `/${street_address}/${city}/${state}/${zip}`;
-    const response = await fetch(api_url);
-    const fullData = await response.json().catch(err => console.log(err));
-    const foundHome = fullData.zillow;
-    console.log(fullData)
-    // console.log("foundHome:", foundHome);
-    if(foundHome) {
-      this.setState({
-        isLoading: false,
-        foundHome: this.parseHome(foundHome),
-            estimates: {
-              ...this.state.estimates,
-              zillowEstimate: {
-                ...this.state.estimates.zillowEstimate,
-                link: this.parseZillowEstimate(foundHome).link,
-                value: this.parseZillowEstimate(foundHome).value,
-                active: this.parseZillowEstimate(foundHome).value ? this.active = true : this.active = false
-              },
-              realtorEstimate: {
-                ...this.state.estimates.realtorEstimate,
-                listing_id: fullData.realtor.listing_id,
-                link: fullData.realtor.link,
-                value: fullData.realtor.value,
-                active: fullData.realtor.value ? this.active = true : this.active = false
-              },
-              melissaEstimate: {
-                ...this.state.estimates.melissaEstimate,
-                value: fullData.melissa.value,
-                active: fullData.melissa.value ? this.active = true : this.active = false
-              },
-              redfinEstimate: {
-                ...this.state.estimates.redfinEstimate,
-                value: fullData.redfin.value,
-                link: fullData.redfin.link,
-                active: fullData.redfin.value ? this.active = true : this.active = false
-              },
-              mashvisorEstimate: {
-                ...this.state.estimates.mashvisorEstimate,
-                value: fullData.mashvisor.value,
-                active: fullData.mashvisor.value ? this.active = true : this.active = false
-              },
-              realtyMoleValue: {
-                ...this.state.estimates.realtyMoleValue,
-                value: fullData.realtyMole.value,
-                active: fullData.realtyMole.value ? this.active = true : this.active = false
-              },
-              dataTreeEstimate: {
-                ...this.state.estimates.dataTreeEstimate,
-                value: this.parseZillowEstimate(foundHome).value + Math.floor(Math.random() * 1060),
-                active: this.parseZillowEstimate(foundHome).value ? this.active = true : this.active = false
-              },
-              estatedEstimate: {
-                ...this.state.estimates.estatedEstimate,
-                value: this.parseZillowEstimate(foundHome).value + Math.floor(Math.random() * 1432),
-                active: this.parseZillowEstimate(foundHome).value ? this.active = true : this.active = false
-              }
-            },
-            extraHomeData: {
-              ...this.state.extraHomeData,
-              propStatus: fullData.realtor.extraData.propStatus,
-              heating: fullData.realtor.extraData.heating,
-              cooling: fullData.realtor.extraData.cooling,
-              description: fullData.realtor.extraData.description,
-              additionalPhotos: fullData.realtor.extraData.additionalPhotos
-            }
-          });
-    } else {
-      alert('Address not valid');
     }
-  };
+  }
+
+  parseAddress = (address) => {
+    // Simple address parser - you might want to use a more robust solution
+    const parts = address.split(',').map(part => part.trim());
+    const street = parts[0];
+    const city = parts[1];
+    const stateZip = parts[2].split(' ');
+    const state = stateZip[0];
+    const zip = stateZip[1];
+    return [street, city, state, zip];
+  }
 
   nodeFinder = (data) => {
     if (data !== null || data !== undefined) {
@@ -209,7 +171,6 @@ export default class App extends Component {
   };
 
   parseHome = (homeData) => {
-    // console.log(fullData)
     const homeObj ={
       home_type: this.nodeFinder(homeData.useCode),
       year_built: this.nodeFinder(homeData.yearBuilt),
@@ -219,7 +180,6 @@ export default class App extends Component {
       bathrooms: this.nodeFinder(homeData.bathrooms),
       total_rooms: this.nodeFinder(homeData.totalRooms),
       sold_date: this.nodeFinder(homeData.lastSoldDate),
-      // sold_price: this.nodeFinder(homeData.lastSoldPrice[0]._),
       street_address: this.nodeFinder(homeData.address[0].street[0]),
       city: this.nodeFinder(homeData.address[0].city[0]),
       state: this.nodeFinder(homeData.address[0].state[0]),
@@ -227,9 +187,6 @@ export default class App extends Component {
       lat: this.nodeFinder(homeData.address[0].latitude),
       long: this.nodeFinder(homeData.address[0].longitude),
       link_to: this.nodeFinder(homeData.links[0].homedetails[0]),
-      // salestatus: this.nodeFinder(fullData.realtor.extraData.propStatus),
-      // heating: this.nodeFinder(fullData.realtor.extraData.heating),
-      // cooling: this.nodeFinder(fullData.realtor.extraData.cooling),
     }
     return homeObj;
   }
@@ -251,200 +208,193 @@ export default class App extends Component {
   }
 
   toggleEstimate = (e, id, props) => {
-    // debugger
-      if(e.target.innerText === 'REMOVE LISTING') {
-        e.target.innerText = "Add Listing";
-        e.target.style.pointerEvents = 'all';
-        e.target.style.cursor = 'pointer';
-        e.target.style.color = 'red';
-        e.target.parentElement.parentElement.parentElement.parentElement.classList.add("disabled");
-        if(id === 1) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              zillowEstimate: {
-                ...this.state.estimates.zillowEstimate,
-                active: false
-              }
+    if(e.target.innerText === 'REMOVE LISTING') {
+      e.target.innerText = "Add Listing";
+      e.target.style.pointerEvents = 'all';
+      e.target.style.cursor = 'pointer';
+      e.target.style.color = 'red';
+      e.target.parentElement.parentElement.parentElement.parentElement.classList.add("disabled");
+      if(id === 1) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            zillowEstimate: {
+              ...this.state.estimates.zillowEstimate,
+              active: false
             }
-          })
-        } else if (id === 2) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              realtorEstimate: {
-                ...this.state.estimates.realtorEstimate,
-                active: false
-              }
+          }
+        })
+      } else if (id === 2) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            realtorEstimate: {
+              ...this.state.estimates.realtorEstimate,
+              active: false
             }
-          })
-        } else if (id === 3) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              redfinEstimate: {
-                ...this.state.estimates.redfinEstimate,
-                active: false
-              }
+          }
+        })
+      } else if (id === 3) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            redfinEstimate: {
+              ...this.state.estimates.redfinEstimate,
+              active: false
             }
-          })
-        } else if (id === 4) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              melissaEstimate: {
-                ...this.state.estimates.melissaEstimate,
-                active: false
-              }
+          }
+        })
+      } else if (id === 4) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            melissaEstimate: {
+              ...this.state.estimates.melissaEstimate,
+              active: false
             }
-          })
-        } else if (id === 5) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              mashvisorEstimate: {
-                ...this.state.estimates.mashvisorEstimate,
-                active: false
-              }
+          }
+        })
+      } else if (id === 5) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            mashvisorEstimate: {
+              ...this.state.estimates.mashvisorEstimate,
+              active: false
             }
-          })
-        } else if (id === 6) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              realtyMoleValue: {
-                ...this.state.estimates.realtyMoleValue,
-                active: false
-              }
+          }
+        })
+      } else if (id === 6) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            realtyMoleValue: {
+              ...this.state.estimates.realtyMoleValue,
+              active: false
             }
-          })
-        } else if (id === 7) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              dataTreeEstimate: {
-                ...this.state.estimates.dataTreeEstimate,
-                active: false
-              }
+          }
+        })
+      } else if (id === 7) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            dataTreeEstimate: {
+              ...this.state.estimates.dataTreeEstimate,
+              active: false
             }
-          })
-        } else if (id === 8) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              estatedEstimate: {
-                ...this.state.estimates.estatedEstimate,
-                active: false
-              }
+          }
+        })
+      } else if (id === 8) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            estatedEstimate: {
+              ...this.state.estimates.estatedEstimate,
+              active: false
             }
-          })
-        }
+          }
+        })
+      }
 
-        // const id = e.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
-        // console.log(id)
-        // this.deleteEstimate(id)
-      } else if(e.target.innerText === 'ADD LISTING') {
-        e.target.innerText = "Remove Listing";
-        e.target.style.pointerEvents = '';
-        e.target.style.cursor = '';
-        e.target.style.color = '';
-        e.target.parentElement.parentElement.parentElement.parentElement.classList.remove("disabled");
-        if (id === 1) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              zillowEstimate: {
-                ...this.state.estimates.zillowEstimate,
-                active: true
-              }
+      // const id = e.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
+      // console.log(id)
+      // this.deleteEstimate(id)
+    } else if(e.target.innerText === 'ADD LISTING') {
+      e.target.innerText = "Remove Listing";
+      e.target.style.pointerEvents = '';
+      e.target.style.cursor = '';
+      e.target.style.color = '';
+      e.target.parentElement.parentElement.parentElement.parentElement.classList.remove("disabled");
+      if (id === 1) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            zillowEstimate: {
+              ...this.state.estimates.zillowEstimate,
+              active: true
             }
-          })
-        } else if (id === 2) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              realtorEstimate: {
-                ...this.state.estimates.realtorEstimate,
-                active: true
-              }
+          }
+        })
+      } else if (id === 2) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            realtorEstimate: {
+              ...this.state.estimates.realtorEstimate,
+              active: true
             }
-          })
-        } else if (id === 3) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              redfinEstimate: {
-                ...this.state.estimates.redfinEstimate,
-                active: true
-              }
+          }
+        })
+      } else if (id === 3) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            redfinEstimate: {
+              ...this.state.estimates.redfinEstimate,
+              active: true
             }
-          })
-        } else if (id === 4) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              melissaEstimate: {
-                ...this.state.estimates.melissaEstimate,
-                active: true
-              }
+          }
+        })
+      } else if (id === 4) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            melissaEstimate: {
+              ...this.state.estimates.melissaEstimate,
+              active: true
             }
-          })
-        } else if (id === 5) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              mashvisorEstimate: {
-                ...this.state.estimates.mashvisorEstimate,
-                active: true
-              }
+          }
+        })
+      } else if (id === 5) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            mashvisorEstimate: {
+              ...this.state.estimates.mashvisorEstimate,
+              active: true
             }
-          })
-        } else if (id === 6) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              realtyMoleValue: {
-                ...this.state.estimates.realtyMoleValue,
-                active: true
-              }
+          }
+        })
+      } else if (id === 6) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            realtyMoleValue: {
+              ...this.state.estimates.realtyMoleValue,
+              active: true
             }
-          })
-        } else if (id === 7) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              dataTreeEstimate: {
-                ...this.state.estimates.dataTreeEstimate,
-                active: true
-              }
+          }
+        })
+      } else if (id === 7) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            dataTreeEstimate: {
+              ...this.state.estimates.dataTreeEstimate,
+              active: true
             }
-          })
-        } else if (id === 8) {
-          this.setState({
-            estimates: {
-              ...this.state.estimates,
-              estatedEstimate: {
-                ...this.state.estimates.estatedEstimate,
-                active: true
-              }
+          }
+        })
+      } else if (id === 8) {
+        this.setState({
+          estimates: {
+            ...this.state.estimates,
+            estatedEstimate: {
+              ...this.state.estimates.estatedEstimate,
+              active: true
             }
-          })
-        }
+          }
+        })
       }
     } 
+  }
 
-    deleteEstimate = (id) => {
-      for(let i = 0; i < this.state.estimates; i++) {
-        console.log(this.state.estimates[i])
-      }
+  deleteEstimate = (id) => {
+    for(let i = 0; i < this.state.estimates; i++) {
+      console.log(this.state.estimates[i])
     }
+  }
     
-
-  // scrollToResults = () => {
-  //     scroller.scrollTo("search-results", {
-  //       duration: 1000
-  //     });
-  // };
 
   savePage = () => {
     const address = this.state.foundHome.street_address
@@ -465,13 +415,7 @@ export default class App extends Component {
   }
 
   getSearchResults = queryObj => {
-    let zStreet_address = queryObj.address.split(" ").join("+");
-    let zCity = queryObj.city.split(" ").join("+");
-    let zState = queryObj.state;
-    let zZip = queryObj.zip;
-
-    // this.scrollToResults();
-    this.fetchHomeData(zStreet_address, zCity, zState, zZip);
+    this.handleSearch(queryObj);
   };
 
   handleChange = e => {
@@ -485,74 +429,80 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.isLoading ?
+        {this.state.isLoading || this.state.loading ?
           <div className="loading-screen">
             <img src={LoadingIcon} alt="" />
             <h1>The Accupraisal algorithm is finding your home's value!</h1>
           </div> : null}
         <CssBaseline />
-        <Switch>
-          <Route exact path="/profile">
-            <ProfilePage />
-          </Route>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
-          <Route exact path="/about">
-            <div className="header">
+        <Routes>
+          <Route exact path="/profile" element={<ProfilePage />} />
+          <Route exact path="/signup" element={<SignUp />} />
+          <Route exact path="/about" element={
+            <>
+              <div className="header">
+                <NavMenu />
+              </div>
+              <div className="flex-wrapper">
+                <AboutContent />
+                <Footer />
+              </div>
+            </>
+          } />
+          <Route exact path="/contact" element={
+            <>
               <NavMenu />
-            </div>
-            <div class="flex-wrapper">
-            <AboutContent />
-            <Footer />
-            </div>
-          </Route>
-          <Route exact path="/contact">
-              <NavMenu />
-            <div class="flex-wrapper">
-            <ContactContent />
-            <Footer />
-            </div>
-          </Route>
-          <Route exact path="/sell-my-home">
-            <div className="header">
-              <NavMenu />
-            </div>
-            <div class="flex-wrapper">
-            <SellMyHomeContent />
-            <Footer />
-            </div>
-          </Route>
-          <Route exact path="/estimates">
-            <NavContainer
-              loggedin={this.state.isLoggedIn}
-              search={this.getSearchResults}
-            />
-            <div className="flex-wrapper">
-            <Element name="search-results">
-              {this.isEmpty(this.state.foundHome) ? (
-                <EmptySearchContainer isLoading={this.state.isLoading}/>
-              ) : (
-                <APIContainer
-                  home={this.state.foundHome}
-                  extraHomeData={this.state.extraHomeData}
-                  estimates={this.state.estimates}
-                  toggleEstimate={this.toggleEstimate}
-                  savePage={this.savePage}
-                />
-              )}
-            </Element>
-            <Footer />
-            </div>
-          </Route>
-          <Route path="/">
-            <LandingPageContainer
-              search={this.getSearchResults}
-            />
-            <LandingPageContent />
-            <Footer />
-          </Route>
-        </Switch>
+              <div className="flex-wrapper">
+                <ContactContent />
+                <Footer />
+              </div>
+            </>
+          } />
+          <Route exact path="/sell-my-home" element={
+            <>
+              <div className="header">
+                <NavMenu />
+              </div>
+              <div className="flex-wrapper">
+                <SellMyHomeContent />
+                <Footer />
+              </div>
+            </>
+          } />
+          <Route exact path="/estimates" element={
+            <>
+              <NavContainer
+                loggedin={this.state.isLoggedIn}
+                search={this.getSearchResults}
+              />
+              <div className="flex-wrapper">
+                <Element name="search-results">
+                  {this.isEmpty(this.state.foundHome) ? (
+                    <EmptySearchContainer isLoading={this.state.isLoading}/>
+                  ) : (
+                    <APIContainer
+                      home={this.state.foundHome}
+                      extraHomeData={this.state.extraHomeData}
+                      estimates={this.state.estimates}
+                      toggleEstimate={this.toggleEstimate}
+                      savePage={this.savePage}
+                    />
+                  )}
+                </Element>
+                <Footer />
+              </div>
+            </>
+          } />
+          <Route path="/" element={
+            <>
+              <LandingPageContainer
+                search={this.getSearchResults}
+              />
+              <LandingPageContent />
+              <Footer />
+            </>
+          } />
+        </Routes>
       </div>
     );
   }
