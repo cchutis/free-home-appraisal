@@ -11,7 +11,7 @@ import LandingPageContainer from './containers/LandingPageContainer';
 import NavMenu from './components/NavMenu';
 import ProfilePage from './containers/ProfilePage';
 import SignUp from './components/SignUp';
-import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
+import { Element } from 'react-scroll';
 import AboutContent from './content/AboutContent';
 import ContactContent from './content/ContactContent';
 import SellMyHomeContent from './content/SellMyHomeContent';
