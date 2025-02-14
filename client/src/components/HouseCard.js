@@ -1,19 +1,19 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-// import StarIcon from '@material-ui/icons/Star';
+import { styled } from '@mui/material/styles';
+import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+// import StarIcon from '@mui/icons-material/Star';
 import Map from './Map';
 
 // require('dotenv').config();
 
-const useStyles = makeStyles({
+const useStyles = styled({
   card: {
     maxWidth: 1000
   },

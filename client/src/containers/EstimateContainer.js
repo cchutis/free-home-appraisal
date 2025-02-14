@@ -1,6 +1,6 @@
 import React from 'react';
 import EstimateCard from '../components/EstimateCard';
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 
 // function renderEstimateCards(props) {
 //     return props.estimates.map(estimate => {

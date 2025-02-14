@@ -1,10 +1,10 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material/styles';
 import parse from 'autosuggest-highlight/parse';
 import throttle from 'lodash/throttle'; 
 // Disabled and moved to index.html to prevent API conflict of maps/search
@@ -23,7 +23,7 @@ import throttle from 'lodash/throttle';
 
 const autocompleteService = { current: null };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = styled(theme => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(1),

@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
     button: {
         margin: theme.spacing(1),
     },

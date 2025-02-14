@@ -1,22 +1,7 @@
-import { createConnector } from "react-instantsearch-dom";
+import React from 'react';
 
-export default createConnector({
-  displayName: "AlgoliaPlaces",
-
-  getProvidedProps() {
-    return {};
-  },
-
-  refine(props, searchState, nextValue) {
-    return {
-      ...searchState,
-      aroundLatLng: nextValue,
-      boundingBox: {}
-    };
-  },
-
-  getSearchParameters(searchParameters, props, searchState) {
-    // const currentRefinement = searchState.aroundLatLng || props.defaultRefinement;
-    return searchParameters.setQueryParameter("insideBoundingBox")
-  }
-});
+export default function connect(WrappedComponent) {
+  return function ConnectedComponent(props) {
+    return <WrappedComponent {...props} />;
+  };
+}

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Button from '@material-ui/core/Button';
-import UserIcon from '@material-ui/icons/AccountCircleTwoTone';
+import { styled } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
+import Button from '@mui/material/Button';
+import UserIcon from '@mui/icons-material/AccountCircleTwoTone';
 import SignUp from './SignUp';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
     alignItems: "center",
@@ -23,7 +24,6 @@ const useStyles = makeStyles(theme => ({
     outline: "none"
   }
 }));
-
 
 export default function UserLogin(props) {
   const classes = useStyles();
