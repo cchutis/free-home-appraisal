@@ -1,11 +1,11 @@
 import React from 'react';
 import NavMenu from '../components/NavMenu';
 import Logo from '../components/Logo';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
 
 
-const CTAButton = withStyles({
+const CTAButton = styled(Button)({
   root: {
     background: 'linear-gradient(45deg, #3f51b5b5 30%, #5db1b5 90%)',
     borderRadius: 3,
@@ -19,7 +19,7 @@ const CTAButton = withStyles({
   label: {
     textTransform: 'capitalize',
   }
-})(Button);
+});
 
 
 export default function LandingPageContainer(props) {
